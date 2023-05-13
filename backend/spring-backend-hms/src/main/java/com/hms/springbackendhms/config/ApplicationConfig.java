@@ -1,5 +1,6 @@
 package com.hms.springbackendhms.config;
 
+import com.hms.springbackendhms.db.VirtualDatabase;
 import com.hms.springbackendhms.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -21,8 +22,13 @@ public class ApplicationConfig {
     private final UserRepository repository;
     @Bean
     public UserDetailsService userDetailsService(){
-        return username -> repository.findByEmail(username)
+        return username -> VirtualDatabase.findByEmail(username);
+
+        /*
+            return username -> repository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        */
     }
 
     @Bean
