@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+</head>
+<body>
+<form action="/api/v1/auth/register" method="POST">
+  <label for="email">Email:</label><br>
+  <input type="email" id="email" name="email"><br>
+
+  <label for="password">Password:</label><br>
+  <input type="password" id="password" name="password"><br><br>
+
+  <label for="firstname">Firstname:</label><br>
+  <input type="text" id="firstname" name="firstname"><br>
+
+  <label for="lastname">Lastname:</label><br>
+  <input type="text" id="lastname" name="lastname"><br>
+
+  <input type="submit" value="Submit">
+</form>
+</body>
+<script>
+  // select the form element
+const form = document.querySelector('form');
+
+// attach event listener to form submit
+form.addEventListener('submit', (e) => {
+  // prevent form submission
+  e.preventDefault();
+
+  // create FormData object to read form data
+  const formData = new FormData(form);
+
+  // convert form data to JSON object
+  const jsonData = {};
+  formData.forEach((value, key) => { jsonData[key] = value; });
+
+  // create XMLHttpRequest object
+  const xhr = new XMLHttpRequest();
+
+  // set the request method and URL
+  xhr.open('POST', '/api/v1/auth/register');
+
+  // set the request header to send JSON data
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  // send JSON data as the request body
+  xhr.send(JSON.stringify(jsonData));
+});
+</script>
+</html>

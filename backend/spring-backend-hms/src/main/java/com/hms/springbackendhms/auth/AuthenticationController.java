@@ -1,11 +1,17 @@
 package com.hms.springbackendhms.auth;
 
+import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -14,11 +20,34 @@ public class AuthenticationController {
 
     private final AuthenticationService service;
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity<String> register(
             @RequestBody RegisterRequest request
     )
     {
-        return ResponseEntity.ok(service.register(request));
+        System.out.println("Incoming register request");
+        System.out.println("mail: " + request.getEmail());
+        AuthenticationResponse authenticationResponse = service.register(request);
+        String token = authenticationResponse.getToken();
+
+        Cookie jwtCookie = new Cookie("token", token);
+        jwtCookie.setHttpOnly(true);
+        jwtCookie.setSecure(true);
+
+        ResponseCookie cookie = ResponseCookie.from("token", token)
+                .httpOnly(true)
+                .secure(false)
+                .domain("localhost")
+                .path("/")
+                .maxAge(1000)
+                .build();
+
+
+        return ResponseEntity
+                .status(303)
+                .header("Location", "/home")
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .build();
+        //return ResponseEntity.ok(service.register(request));
     }
 
     @PostMapping("/authenticate")
