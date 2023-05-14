@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/home")
 @RequiredArgsConstructor
-public class AuthorizedController {
+public class HomeController {
 
-    @GetMapping("/login")
-    public ResponseEntity<String> login(){
-        return ResponseEntity.ok("Login Page");
+    @GetMapping
+    public ResponseEntity<String> home(){
+        return ResponseEntity.ok("Home Page");
     }
-
 }
