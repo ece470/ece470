@@ -29,13 +29,9 @@ public class AuthenticationController {
         AuthenticationResponse authenticationResponse = service.register(request);
         String token = authenticationResponse.getToken();
 
-        Cookie jwtCookie = new Cookie("token", token);
-        jwtCookie.setHttpOnly(true);
-        jwtCookie.setSecure(true);
-
         ResponseCookie cookie = ResponseCookie.from("token", token)
                 .httpOnly(true)
-                .secure(false)
+                .secure(true)
                 .domain("localhost")
                 .path("/")
                 .maxAge(1000)
@@ -43,8 +39,7 @@ public class AuthenticationController {
 
 
         return ResponseEntity
-                .status(303)
-                .header("Location", "/home")
+                .ok()
                 .header(HttpHeaders.SET_COOKIE, cookie.toString())
                 .build();
         //return ResponseEntity.ok(service.register(request));
