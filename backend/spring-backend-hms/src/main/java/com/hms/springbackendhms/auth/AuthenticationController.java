@@ -37,10 +37,19 @@ public class AuthenticationController {
                 .maxAge(1000)
                 .build();
 
-
+        URI uri = null;
+        try{
+            uri = new URI("http://localhost:8080/access");
+        }
+        catch(java.net.URISyntaxException ex){
+            //
+        }
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setLocation(uri);
         return ResponseEntity
                 .ok()
                 .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .headers(httpHeaders)
                 .build();
         //return ResponseEntity.ok(service.register(request));
     }
