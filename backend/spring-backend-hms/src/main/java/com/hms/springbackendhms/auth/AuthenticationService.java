@@ -28,11 +28,15 @@ public class AuthenticationService {
                 .role(Role.USER)
                 .build();
 
-        VirtualDatabase.addUser(user);
-        var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
+        if(!VirtualDatabase.has(user)) {
+            VirtualDatabase.addUser(user);
+            var jwtToken = jwtService.generateToken(user);
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .build();
+        }
+        System.out.println("User already exists");
+        return null;
     }
     //passwordEncoder.encode(request.getPassword())
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -43,11 +47,9 @@ public class AuthenticationService {
                 )
         );
         var user = VirtualDatabase.findByEmail(request.getEmail());
-        if(user == null){
-            System.out.println("\n\nUnSER NOT FOUND\n");
-            System.exit(0);
+        if(user == null || !user.getPassword().equals(request.getPassword())){
+            return null;
         }
-        //var user = new User(0, "ilagomatis@mail.com", "123", "Ilias", "Lagomatis", Role.USER);
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)

@@ -27,8 +27,10 @@ public class AuthenticationController {
         System.out.println("Incoming register request");
         System.out.println("mail: " + request.getEmail());
         AuthenticationResponse authenticationResponse = service.register(request);
+        if(authenticationResponse == null){
+            return ResponseEntity.ok("This email is already registered");
+        }
         String token = authenticationResponse.getToken();
-
         ResponseCookie cookie = ResponseCookie.from("token", token)
                 .httpOnly(true)
                 .secure(true)
@@ -37,28 +39,35 @@ public class AuthenticationController {
                 .maxAge(1000)
                 .build();
 
-        URI uri = null;
-        try{
-            uri = new URI("http://localhost:8080/access");
-        }
-        catch(java.net.URISyntaxException ex){
-            //
-        }
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setLocation(uri);
         return ResponseEntity
                 .ok()
                 .header(HttpHeaders.SET_COOKIE, cookie.toString())
-                .headers(httpHeaders)
                 .build();
-        //return ResponseEntity.ok(service.register(request));
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(
+    public ResponseEntity<String> authenticate(
             @RequestBody AuthenticationRequest request
     )
     {
-        return ResponseEntity.ok(service.authenticate(request));
+        AuthenticationResponse authenticationResponse = service.authenticate(request);
+
+        if(authenticationResponse == null){
+            return ResponseEntity.ok("Authentication Failed");
+        }
+
+        String token = authenticationResponse.getToken();
+        ResponseCookie cookie = ResponseCookie.from("token", token)
+                .httpOnly(true)
+                .secure(true)
+                .domain("localhost")
+                .path("/")
+                .maxAge(1000)
+                .build();
+
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .build();
     }
 }

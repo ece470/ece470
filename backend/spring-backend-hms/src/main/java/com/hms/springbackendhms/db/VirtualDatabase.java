@@ -25,4 +25,13 @@ public class VirtualDatabase {
         }
         return null;
     }
+
+    public static boolean has(User user) {
+        for(User registeredUser : db){
+            if(registeredUser.getEmail().equals(user.getEmail())){
+                return true;
+            }
+        }
+        return false;
+    }
 }
