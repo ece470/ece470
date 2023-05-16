@@ -100,7 +100,7 @@ crossorigin="anonymous"></script>
 
 
             <!-- NOTE DETAILS -->
-            <div class="card bg-light mb-3" style="max-width: 30rem; margin: auto; margin-top: 100px">
+            <div class="card bg-light mb-3" style="max-width: 30rem; margin: auto; margin-top: 50px">
                 <div class="card-header" id="cardHeader">Λεπτομέρειες καταχώρησης</div>
                 <div class="card-body">
                     <!-- TITLE -->
@@ -167,26 +167,8 @@ crossorigin="anonymous"></script>
         </div>
     </div>
 
-    
-    <!-- ADD NEW EVENT -->
-    <!-- <button onclick = "setValues()">
-        Press me also
-    </button> -->    
-
 
     <script type="text/javascript">
-    // if (document.addEventListener) {
-    // document.addEventListener('contextmenu', function(e) {
-    //     //alert("You've tried to open context menu"); //here you draw your own menu
-    //     // e.preventDefault();
-    //     console.log(e.clientX + " " + e.clientY)
-    // }, false);
-    // } else {
-    // document.attachEvent('oncontextmenu', function() {
-    //     //alert("You've tried to open context menu");
-    //     window.event.returnValue = false;
-    // });
-    // }
 
     let ec = new EventCalendar(document.getElementById('ec'), {
     view: 'timeGridWeek',
@@ -238,8 +220,8 @@ function formatTime(date){
 }
 
 function createEvents() {
-        let day1 = new Date("May 20, 2023 11:20:40");
-        let day2 = new Date("May 20, 2023 14:00:00");
+        let day1 = new Date("May 20, 2023 7:20:40");
+        let day2 = new Date("May 20, 2023 10:00:00");
        
         return [
             {start: day1 , end: day2 , resourceId: 1, title: "The calendar can display background and regular events", color: "#70c8fd"}
