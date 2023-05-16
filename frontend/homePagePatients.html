@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <!-- <%- include("header.ejs"); %> -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@0.19.0/event-calendar.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@0.19.0/event-calendar.min.js"></script>
+        <script>import '@event-calendar/core/index.css';</script>
+
+    </head>
+    
+    <style>    
+        table, th, td, tr {    
+            border: 1px solid black;  
+            border-collapse: collapse;    
+            width: 50px;  
+            text-align: center;  
+            font-size: 20px;  
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 1000px;
+            margin: 0 auto;
+            float: none;
+        }    
+
+       
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            padding: 8px;
+        }
+
+    
+    </style>    
+
+    <body style="background-image: url(); margin-top: 100px">
+        
+        <div style="display: flex; justify-content: center;">
+            <div>
+                <ul class="nav nav-tabs" >
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" onClick="visibility('UpcomingAppointements', 'Diagnoses', 'Calendar');">Επερχόμενα Ραντεβού</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" onClick="visibility('Diagnoses','UpcomingAppointements', 'Calendar');">Ιστορικό Διαγνώσεων</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" onClick="visibility('Calendar', 
+                        'Diagnoses','UpcomingAppointements');">Ημερολόγιο</a>
+                    </li>
+                </ul>
+            </div>           
+        </div>                        
+
+        <div  style="display: flex; justify-content: center; margin-top: 20px; margin-left: 35%;">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"style="background-color: rgb(7, 6, 219)">
+                Προσθήκη Ραντεβού
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Στοιχεία Ραντεβού</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="row g-3">
+                                
+                                <!-- <div id='createAlert' class="alert alert-success" role="alert" style="width: 60%; text-align:left; display: none;">
+                                    Το ραντεβού καταχωρήθηκε με επιτυχία 
+                                </div> -->
+                                <div class="col-12">
+                                    <label  for="amka" class="form-label" >Ονοματεπώνυμο Ιατρού</label>
+                                    <input type="text" class="form-control" id="amka" required placeholder="Επώνυμο Όνομα">
+                                </div>                                               
+                               
+                                <div class="col-md-4" style="margin-top: 0px;">
+                                    <label for="dateEvent" class="form-label"></label>
+                                    <input type="date" class="form-control" id="dateEvent">
+                                </div>
+                                <div class="col-md-3" style="margin-top: 0px;">
+                                    <label for="timeEvent" class="form-label"></label>
+                                    <input type="time" class="form-control" id="timeEvent">
+                                </div>
+                                
+                            </form>
+                                              
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color:rgb(7, 6, 219)" onclick="filterFunc();">Εντάξει</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        
+
+        <div id = "UpcomingAppointements" style="margin-top: 50px;">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Ονοματεπώνυμο Ιατρού</th>
+                    <th scope="col">Ειδικότητες</th>
+                    <th scope="col">Ημερομηνία</th>
+                    <th scope="col">Ώρα</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Ευθυμία Παπαστεφάνου</td>
+                    <td>Παθολόγος</td>
+                    <td>08/05/2023</td>
+                    <td>9:00</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Σπυρίδων Χρηστόπουλος </td>
+                    <td>Οδοντίατρος</td>
+                    <td>08/05/2023</td>
+                    <td>10:00</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Ιωάννης Παπαδόπουλος</td>
+                    <td>Καρδιολόγος</td>
+                    <td>08/05/2023</td>
+                    <td>10:30</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+
+        <div id = "Diagnoses" style="margin-top: 50px; display: none;">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Ονοματεπώνυμο</th>
+                    <th scope="col">Ειδικότητες</th>
+                    <th scope="col">Ημερομηνία</th>
+                    <th scope="col">Πράξη</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Όλγα Κοτζιά </td>
+                    <td>Παθολόγος</td>
+                    <td>05/05/2023</td>
+                    <td>Συνταγογράφιση</td>
+                    <td>
+                        <div  style="display: flex; justify-content: center; margin-top: 20px; margin-left: 35%;">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#details" style="width: 120px; height:40px;">
+                                Λεπτομέρειες
+                            </button>
+                
+                            <!-- Modal -->
+                            <div class="modal fade" id="details" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Στοιχεία Συνταγογράφισης</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="row g-3">
+                                                <div class="col-12">
+                                                    <label  for="titleEvent" class="form-label" ></label>                                
+                                                    <input type="text" class="form-control" id="titleEvent" placeholder="Φάρμακο" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <!-- <label for="exampleFormControlTextarea1" style="text-align: left;">Example textarea</label> -->
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1" readonly rows="3" style="resize: none;">Περιγραφή φαρμάκου...</textarea>
+                                                </div>       
+                                                <div class="col-md-4" >
+                                                    <label for="date" class="form-label" >Λήψη έως:</label>
+                                                    <input type="date" class="form-control" id="date">
+                                                </div>                                      
+                                            </form>                                                                                             
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color:rgb(7, 6, 219)" onclick="filterFunc();">Εντάξει</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Εμμανουήλ Γεωργιάδης </td>
+                    <td>Καρδιολόγος</td>
+                    <td>03/01/2023</td>
+                    <td>Εκτέλεση Ιατρικής Πράξης</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Λάμπρος Γιαννάκης</td>
+                    <td>Νευρολόγος</td>
+                    <td>21/12/2022</td>
+                    <td>Διάγνωση</td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+        
+                                   
+        <div id="Calendar" style= "display: none; margin-top: 50px; ">
+            <script>
+                 let ec = new EventCalendar(document.getElementById('ec'), {
+                view: 'timeGridWeek',
+                events: [
+                    // your list of events
+                ]
+                 });
+            </script>
+           
+        </div>
+           
+    </body>
+
+    <script>
+
+        function visibility(idVisible, idInvisible1, idInvisible2){
+            document.getElementById(idVisible).style.display="block";
+            document.getElementById(idInvisible1).style.display="none";
+            document.getElementById(idInvisible2).style.display="none";
+        }
+
+
+    </script>
+    
+</html>
