@@ -17,50 +17,56 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
-public class User /*implements UserDetails*/ {
+@Table(name = "patient")
+public class Patient implements UserDetails {
     @Id
     @GeneratedValue
     private int id;
+    private String address;
+    private String afm;
+    private String amka;
+    private String city;
+    private String dob;
     private String email;
-    private String password;
     private String firstname;
     private String lastname;
+    private String password;
+    private String tel;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    //@Override
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    //@Override
+    @Override
     public String getPassword() {
         return password;
     }
 
-    //@Override
+    @Override
     public String getUsername() {
         return email;
     }
 
-    //@Override
+    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    //@Override
+    @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    //@Override
+    @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    //@Override
+    @Override
     public boolean isEnabled() {
         return true;
     }

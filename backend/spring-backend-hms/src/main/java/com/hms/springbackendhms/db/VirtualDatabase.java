@@ -1,34 +1,31 @@
 package com.hms.springbackendhms.db;
 
+import com.hms.springbackendhms.user.Patient;
 import com.hms.springbackendhms.user.Role;
 import com.hms.springbackendhms.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class VirtualDatabase {
-    private static ArrayList<User> db = new ArrayList(
-            List.of(
-                  new User(0, "ilagomatis@mail.com", "123", "Ilias", "Lagomatis", Role.USER),
-                  new User(1, "amallikopoulou@mail.com", "123", "Anastasia", "Mallikopoulou", Role.USER)
-            )
-    );
-    public static void addUser(User user){
-        db.add(user);
+    private static ArrayList<Patient> db = new ArrayList();
+    public static void addPatient(Patient patient){
+        db.add(patient);
     }
 
-    public static User findByEmail(String email){
-        for(User user : db){
-            if(user.getEmail().equals(email)){
-                return user;
+    public static Patient findByEmail(String email){
+        for(Patient patient : db){
+            if(patient.getEmail().equals(email)){
+                return patient;
             }
         }
         return null;
     }
 
-    public static boolean has(User user) {
-        for(User registeredUser : db){
-            if(registeredUser.getEmail().equals(user.getEmail())){
+    public static boolean has(Patient patient) {
+        for(Patient registeredPatient : db){
+            if(registeredPatient.getEmail().equals(patient.getEmail())){
                 return true;
             }
         }

@@ -31,16 +31,20 @@ public class MainPageController {
         }
         String userEmail = jwtService.extractUsername(token);
         if(userEmail != null) {
+            System.out.println("Main Page: " + userEmail);
+
+
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
             if (jwtService.isTokenValid(token, userDetails)) {
                 // access database to get info about the user
                 // and return main page
-                return "Valid token: " + userEmail;
+                return "index1";
 
             } else {
                 // return home page
                 return "register";
             }
+
 
         }
         return "register";

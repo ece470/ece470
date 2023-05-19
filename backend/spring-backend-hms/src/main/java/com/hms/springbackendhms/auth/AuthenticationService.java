@@ -2,6 +2,7 @@ package com.hms.springbackendhms.auth;
 
 import com.hms.springbackendhms.config.JwtService;
 import com.hms.springbackendhms.db.VirtualDatabase;
+import com.hms.springbackendhms.user.Patient;
 import com.hms.springbackendhms.user.Role;
 import com.hms.springbackendhms.user.User;
 import com.hms.springbackendhms.user.UserRepository;
@@ -28,9 +29,37 @@ public class AuthenticationService {
                 .role(Role.USER)
                 .build();
 
-        if(!VirtualDatabase.has(user)) {
+        /*if(!VirtualDatabase.has(user)) {
             VirtualDatabase.addUser(user);
             var jwtToken = jwtService.generateToken(user);
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .build();
+        }
+
+         */
+        //System.out.println("User already exists");
+        return null;
+    }
+
+    public AuthenticationResponse patientRegister(PatientRegisterRequest request) {
+        var patient = Patient.builder()
+                .firstname(request.getPatientFirstName())
+                .lastname(request.getPatientLastName())
+                .email(request.getPatientEmail())
+                .password(passwordEncoder.encode(request.getPatientPassword()))
+                .role(Role.USER)
+                .tel(request.getPatientTel())
+                .dob(request.getPatientDob())
+                .afm(request.getPatientAfm())
+                .amka(request.getPatientAmka())
+                .address(request.getPatientAddress())
+                .city(request.getPatientCity())
+                .build();
+
+        if(!VirtualDatabase.has(patient)) {
+            VirtualDatabase.addPatient(patient);
+            var jwtToken = jwtService.generateToken(patient);
             return AuthenticationResponse.builder()
                     .token(jwtToken)
                     .build();
@@ -38,7 +67,6 @@ public class AuthenticationService {
         System.out.println("User already exists");
         return null;
     }
-    //passwordEncoder.encode(request.getPassword())
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -46,11 +74,11 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        var user = VirtualDatabase.findByEmail(request.getEmail());
-        if(user == null || !user.getPassword().equals(request.getPassword())){
+        var patient = VirtualDatabase.findByEmail(request.getEmail());
+        if(patient == null || !patient.getPassword().equals(request.getPassword())){
             return null;
         }
-        var jwtToken = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(patient);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
