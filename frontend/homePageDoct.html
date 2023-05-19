@@ -62,52 +62,6 @@
                 </ul>
             </div>           
         </div>                        
-
-        <div  style="display: flex; justify-content: center; margin-top: 20px; margin-left: 35%;">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"style="background-color: rgb(7, 6, 219)">
-                Προσθήκη Ραντεβού
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Στοιχεία Ραντεβού</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form class="row g-3">
-                                
-                                <!-- <div id='createAlert' class="alert alert-success" role="alert" style="width: 60%; text-align:left; display: none;">
-                                    Το ραντεβού καταχωρήθηκε με επιτυχία 
-                                </div> -->
-                                <div class="col-12">
-                                    <label  for="amka" class="form-label" >ΑΜΚΑ Ασθενή</label>
-                                    <input type="tel" class="form-control" id="amka" pattern="[0-9]{11}" required>
-                                    <span class="validity"></span>
-                                </div>                                               
-                               
-                                <div class="col-md-4" style="margin-top: 0px;">
-                                    <label for="dateEvent" class="form-label"></label>
-                                    <input type="date" class="form-control" id="dateEvent">
-                                </div>
-                                <div class="col-md-3" style="margin-top: 0px;">
-                                    <label for="timeEvent" class="form-label"></label>
-                                    <input type="time" class="form-control" id="timeEvent">
-                                </div>
-                                
-                            </form>
-                                              
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color:rgb(7, 6, 219)" onclick="filterFunc();">Εντάξει</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> 
         
 
         <div id = "UpcomingAppointements" style="margin-top: 50px;">
@@ -115,7 +69,8 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Ονοματεπώνυμο</th>
+                    <th scope="col">Ονομα</th>
+                    <th scope="col">Επώνυμο</th>
                     <th scope="col">Ημερομηνία</th>
                     <th scope="col">Ώρα</th>
                   </tr>
@@ -123,19 +78,22 @@
                 <tbody>
                   <tr>
                     <th scope="row">1</th>
-                    <td>Ευθυμία Παπαστεφάνου </td>
+                    <td>Ευθυμία</td>
+                    <td>Παπαστεφάνου </td>
                     <td>08/05/2023</td>
                     <td>9:00</td>
                   </tr>
                   <tr>
-                    <th scope="row">3</th>
-                    <td>Σπυρίδων Χρηστόπουλος </td>
+                    <th scope="row">2</th>
+                    <td>Σπυρίδων</td>
+                    <td>Χρηστόπουλος </td>
                     <td>08/05/2023</td>
                     <td>10:00</td>
                   </tr>
                   <tr>
-                    <th scope="row">2</th>
-                    <td>Ιωάννης Παπαδόπουλος</td>
+                    <th scope="row">3</th>
+                    <td>Ιωάννης</td>
+                    <td>Παπαδόπουλος</td>
                     <td>08/05/2023</td>
                     <td>10:30</td>
                   </tr>
@@ -148,7 +106,8 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Ονοματεπώνυμο</th>
+                    <th scope="col">Ονομα</th>
+                    <th scope="col">Επώνυμο</th>
                     <th scope="col">Ημερομηνία</th>
                     <th scope="col">Ώρα</th>
                   </tr>
@@ -156,19 +115,22 @@
                 <tbody>
                   <tr>
                     <th scope="row">1</th>
-                    <td>Όλγα Κοτζιά </td>
+                    <td>Όλγα</td>
+                    <td>Κοτζιά </td>
                     <td>05/05/2023</td>
                     <td>19:00</td>
                   </tr>
                   <tr>
-                    <th scope="row">3</th>
-                    <td>Εμμανουήλ Γεωργιάδης </td>
+                    <th scope="row">2</th>
+                    <td>Εμμανουήλ</td>
+                    <td>Γεωργιάδης </td>
                     <td>05/05/2023</td>
                     <td>19:30</td>
                   </tr>
                   <tr>
-                    <th scope="row">2</th>
-                    <td>Λάμπρος Γιαννάκης</td>
+                    <th scope="row">3</th>
+                    <td>Λάμπρος</td>
+                    <td>Γιαννάκης</td>
                     <td>05/05/2023</td>
                     <td>20:00</td>
                   </tr>
@@ -178,7 +140,7 @@
         
                                    
         <div id="Calendar" style= "display: none; margin-top: 50px; margin-bottom: 100px;">
-            <iframe style="height: 650px; width: 1700px;  display: flex; justify-content:center; margin-left: 5%;" src="testcalend.html" seamless></iframe>
+            <iframe style="justify-content:center; height: 700px; width: 1500px;  display: flex;" src="testcalend.html" seamless></iframe>
         </div>
            
     </body>
