@@ -65,16 +65,31 @@ public class AuthenticationService {
         return null;
     }
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+
+        System.out.println("Reached Authentication1");
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
                 )
         );
+        System.out.println("Reached Authentication2");
+
         var patient = VirtualDatabase.findByEmail(request.getEmail());
-        if(patient == null || !patient.getPassword().equals(request.getPassword())){
-            return null;
+        if(patient == null ){
+            var doctor = VirtualDatabase.findDoctorByEmail(request.getEmail());
+            if(doctor == null){
+                System.out.println("Auth Failed");
+                return null;
+            }
+            System.out.println("Reached doctor success");
+            var jwtToken = jwtService.generateToken(doctor);
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .build();
         }
+        System.out.println("Reached Patient success");
         var jwtToken = jwtService.generateToken(patient);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
