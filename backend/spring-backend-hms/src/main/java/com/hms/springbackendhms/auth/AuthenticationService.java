@@ -2,10 +2,7 @@ package com.hms.springbackendhms.auth;
 
 import com.hms.springbackendhms.config.JwtService;
 import com.hms.springbackendhms.db.VirtualDatabase;
-import com.hms.springbackendhms.user.Patient;
-import com.hms.springbackendhms.user.Role;
-import com.hms.springbackendhms.user.User;
-import com.hms.springbackendhms.user.UserRepository;
+import com.hms.springbackendhms.user.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ProblemDetail;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -82,5 +79,31 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
+    }
+
+    public AuthenticationResponse doctorRegister(DoctorRegisterRequest request) {
+        var doctor = Doctor.builder()
+                .firstname(request.getDoctorFirstName())
+                .lastname(request.getDoctorLastName())
+                .email(request.getDoctorEmail())
+                .password(passwordEncoder.encode(request.getDoctorPassword()))
+                .role(Role.USER)
+                .tel(request.getDoctorTel())
+                .dob(request.getDoctorDob())
+                .afm(request.getDoctorAfm())
+                .amka(request.getDoctorAmka())
+                .officeAddress(request.getDoctorAddress())
+                .officeCity(request.getDoctorCity())
+                .build();
+
+        if(!VirtualDatabase.hasDoctor(doctor)) {
+            VirtualDatabase.addDoctor(doctor);
+            var jwtToken = jwtService.generateToken(doctor);
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .build();
+        }
+        System.out.println("Doctor already exists");
+        return null;
     }
 }

@@ -71,6 +71,32 @@ public class AuthenticationController {
                 .build();
     }
 
+    @PostMapping("/doctor/register")
+    public ResponseEntity<String> doctorRegister(
+            @RequestBody DoctorRegisterRequest request
+    )
+    {
+        System.out.println("Incoming doctor register request");
+        System.out.println("mail: " + request.getDoctorEmail());
+        AuthenticationResponse authenticationResponse = service.doctorRegister(request);
+        if(authenticationResponse == null){
+            return ResponseEntity.ok("This email is already registered");
+        }
+        String token = authenticationResponse.getToken();
+        ResponseCookie cookie = ResponseCookie.from("token", token)
+                .httpOnly(true)
+                .secure(true)
+                .domain("localhost")
+                .path("/")
+                .maxAge(1000)
+                .build();
+
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .build();
+    }
+
     @PostMapping("/authenticate")
     public ResponseEntity<String> authenticate(
             @RequestBody AuthenticationRequest request
