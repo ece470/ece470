@@ -38,6 +38,9 @@ public class DoctorAppointmentsHistory {
 
                 if (VirtualDatabase.hasDoctor(userEmail)) {
                     // return the history of doctor
+                    // ---------------------
+                    // SELECT *
+                    // FROM DoctorAppointments
                     // where mail = userEmail
                     // AND date < now()
 

@@ -41,7 +41,11 @@ public class DoctorIncomingAppointments {
             if (jwtService.isTokenValid(token, userDetails)) {
 
                 if (VirtualDatabase.hasDoctor(userEmail)) {
-                    // return the history of doctor
+                    // return the incoming
+                    // appointments of doctor
+                    // ---------------------
+                    // SELECT *
+                    // FROM DoctorAppointments
                     // where mail = userEmail
                     // AND date > now()
 
