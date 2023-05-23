@@ -3,6 +3,7 @@ package com.hms.springbackendhms.restapi;
 import com.hms.springbackendhms.config.JwtService;
 import com.hms.springbackendhms.db.VirtualDatabase;
 import com.hms.springbackendhms.response.DoctorAppointmentsHistoryResponse;
+import com.hms.springbackendhms.response.DoctorIncomingAppointmentsResponse;
 import com.hms.springbackendhms.util.DoctorAppointment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +25,7 @@ public class DoctorIncomingAppointments {
     private final UserDetailsService userDetailsService;
 
     @GetMapping
-    public DoctorAppointmentsHistoryResponse incomingAppointments(
+    public DoctorIncomingAppointmentsResponse incomingAppointments(
             @CookieValue(name = "token", defaultValue = "") String token
     )
     {
@@ -57,8 +58,9 @@ public class DoctorIncomingAppointments {
                             .date(new Date())
                             .build());
 
-                    return DoctorAppointmentsHistoryResponse.builder()
-                            .history(appointments)
+                    return DoctorIncomingAppointmentsResponse
+                            .builder()
+                            .incomingAppointments(appointments)
                             .build();
                 }
 
