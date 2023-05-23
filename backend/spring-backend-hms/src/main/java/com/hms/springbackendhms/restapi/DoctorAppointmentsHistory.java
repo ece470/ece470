@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("/restapi/doctor_appointments_history")
@@ -38,7 +37,9 @@ public class DoctorAppointmentsHistory {
             if (jwtService.isTokenValid(token, userDetails)) {
 
                 if (VirtualDatabase.hasDoctor(userEmail)) {
-                    // return the history of doctor where mail = userEmail
+                    // return the history of doctor
+                    // where mail = userEmail
+                    // AND date < now()
 
                     ArrayList<DoctorAppointment> appointments = new ArrayList<>();
                     appointments.add(DoctorAppointment.builder()
