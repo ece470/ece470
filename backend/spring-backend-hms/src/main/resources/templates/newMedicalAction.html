@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <!-- <%- include("header.ejs"); %> -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+       
+    </head>
+    
+    <style>    
+       
+
+    
+    </style>    
+
+    <body style="margin-top: 100px; text-align: center; width: 30%; margin-left: 30%;">
+        <div class="input-group mb-3" >
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">ΑΜΚΑ Ασθενή</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="card" style="width: 35rem; text-align: left;">
+            <div class="card-header">
+              ΣΤΟΙΧΕΙΑ ΑΣΘΕΝΗ
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Όνοματεπώνυμο</li>
+              <li class="list-group-item">ΑΜΚΑ</li>
+              <li class="list-group-item">ΑΦΜ</li>
+              <li class="list-group-item">Τηλέφωνο</li>
+              <li class="list-group-item">Διεύθυνση</li>
+              <li class="list-group-item">Τόπος Διαμονής</li>
+              <li class="list-group-item">Email</li>
+              
+            </ul>
+        </div>
+
+        <div  style="display: flex; justify-content: center; margin-top: 20px;">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#details" style=" height:40px; margin-right: 10px;">
+                Συνταγογράφιση
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="details" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Στοιχεία Συνταγογράφισης</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="row g-3">
+                                <div class="col-12">
+                                    <label  for="titleEvent" class="form-label" ></label>                                
+                                    <input type="text" class="form-control" id="titleEvent" placeholder="Φάρμακο" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <!-- <label for="exampleFormControlTextarea1" style="text-align: left;">Example textarea</label> -->
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" readonly rows="3" style="resize: none;">Περιγραφή φαρμάκου...</textarea>
+                                </div>       
+                                <div class="col-md-4" >
+                                    <label for="date" class="form-label" >Λήψη έως:</label>
+                                    <input type="date" class="form-control" id="date">
+                                </div>                                      
+                            </form>                                                                                             
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color:rgb(7, 6, 219)" onclick="filterFunc();">Εντάξει</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#details2" style=" height:40px;">
+                Διάγνωση
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="details2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Στοιχεία Διάγνωσης</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="row g-3">
+                                <div class="form-group">
+                                    <!-- <label for="exampleFormControlTextarea1" style="text-align: left;">Example textarea</label> -->
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" readonly rows="3" style="resize: none;">Λεπτομέρειες Διάγνωσης</textarea>
+                                </div>                                          
+                            </form>                                                                                             
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color:rgb(7, 6, 219)" onclick="filterFunc();">Εντάξει</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#details3" style=" height:40px;  margin-left: 10px;">
+                Εκτέλεση Πράξης
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="details3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Εκτέλεση Ιατρικής Πράξης</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="row g-3">
+                                <div class="dropdown">
+                                    <div class="row g-3">
+                                        <p  class="col-md-2" style="font-weight: bold; height:min-content;">Πράξη</p>
+                                        <select class="col-md-5"  name="actions" class="form-control" id="actionDetails">
+                                            <option value="action1">action1</option>
+                                            <option value="action2">action2</option>
+                                            <option value="action3">action3</option>                     
+                                        </select>
+                                    </div>
+                                    <script>
+                                        document.getElementById('actionDetails').addEventListener('change', function() {  this.style.color = this.value });
+                                    </script>
+                                </div>
+                                <div class="form-group">
+                                    <!-- <label for="exampleFormControlTextarea1" style="text-align: left;">Example textarea</label> -->
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" style="resize: none;">Λεπτομέρειες ιατρικής πράξης...</textarea>
+                                </div>       
+                                <div class="row g-3" style="text-align: center;">
+                                    <p  class="col-md-5" style="font-weight: bold;">Ημερομηνία Εκτέλεσης</p>
+                                    <div class="col-md-4" >
+                                        <input type="time" class="form-control" id="detailsEndTime">
+                                    </div>      
+                                </div>                                 
+                            </form>                                                                                             
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color:rgb(7, 6, 219)" onclick="filterFunc();">Εντάξει</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+           
+    </body>
+
+    <script>
+
+        
+
+
+    </script>
+    
+</html>

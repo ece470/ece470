@@ -1,0 +1,291 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@0.19.0/event-calendar.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@0.19.0/event-calendar.min.js"></script>
+
+<body>
+    
+    <div class="row justify-content-around">
+        <div class="col-8">
+             <!-- CALENDAR INIT -->
+            <div class="row">
+                <div id="ec" class="col"></div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="row g-3" style="margin-top: 10px; justify-content: center;">
+                <!-- INSERT MODAL -->
+                <div class = "col-md-2" style="display: flex; margin-top: 10px; margin-bottom: 10px; justify-content: center; margin-right: 20px;">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #4ba2f8">
+                       Νέα Καταχώρηση
+                    </button>
+            
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Στοιχεία Καταχώρησης</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="row g-3">
+                                        <!-- TITLE -->
+                                        <div class="form-group">
+                                            <label class="col-md-2" for="newEntryTitle" style="font-weight: bold;">Τίτλος</label>
+                                            <textarea class="col-md-8" class="form-control" id="newEntryTitle" rows="1"></textarea>
+                                        </div>   
+                                        <!-- START DATE AND TIME -->
+                                        <div class="row g-3">
+                                            <p class="col-md-2" style="margin-bottom: 3px; font-weight: bold;">Έναρξη</p>
+                                            <div class="col-md-4" style="margin-top: 0px;">
+                                                <label for="startDay" class="form-label"></label>
+                                                <input type="date" class="form-control" id="startDay">
+                                            </div>
+                                            <div class="col-md-4" style="margin-top: 0px;">
+                                                <label for="startTime" class="form-label"></label>
+                                                <input type="time" class="form-control" id="startTime">
+                                            </div>     
+                                        </div>    
+                                         <!-- END DATE AND TIME -->                    
+                                        <div class="row g-3">
+                                            <p  class="col-md-2" style="margin-bottom: 3px; font-weight: bold;">Λήξη</p>
+                                            <div class="col-md-4" style="margin-top: 0px;">
+                                                <label for="endDay" class="form-label"></label>
+                                                <input type="date" class="form-control" id="endDay">
+                                            </div>
+                                            <div class="col-md-4" style="margin-top: 0px;">
+                                                <label for="endTime" class="form-label"></label>
+                                                <input type="time" class="form-control" id="endTime">
+                                            </div>       
+                                        </div>
+                                        <!-- COLOR OPTIONS -->
+                                        <div class="row g-3">
+                                            <p  class="col-md-2" style="margin-bottom: 3px; font-weight: bold;">Χρώμα</p>
+                                            <select class="col-md-5"  name="color" class="form-control" id="color">
+                                                <option style="color:#70c8fd;" value="#70c8fd">Μπλε</option>
+                                                <option style="color:#57c683;" value="#57c683">Πράσινο</option>                         
+                                                <option style="color:#fcdb21;" value="#fcdb21">Κίτρινο</option>
+                                                <option style="color:#fa9820;" value="#fa9820">Πορτοκαλί</option>
+                                                <option style="color:#ff6262;" value="#ff6262">Κόκκινο</option>                                   
+                                                <option style="color:#9f77e7;" value="#9f77e7">Μωβ</option>                       
+                                            </select>
+                                        </div>
+                                        
+                                        <script>
+                                            document.getElementById('color').addEventListener('change', function() {  this.style.color = this.value });
+                                        </script>     
+                                    </form>
+                                      
+                                </div>
+                                <!-- MODAL SAVE BUTTON -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" onclick="setValues()" data-bs-dismiss="modal" style="background-color:rgb(7, 6, 219)" onclick="filterFunc();">Εντάξει</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+                <!-- SAVE CALENDAR CHANGES BUTTON -->
+                <div class = "col-md-2" style="display: flex; margin-top: 10px; margin-bottom: 10px; height: fit-content;">
+                    <button type="button" class="btn btn-primary" style="background-color: #4ba2f8" onclick = "getValues()">
+                        Αποθήκευση Αλλαγών
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- NOTE DETAILS -->
+            <div class="card bg-light mb-3" style="max-width: 30rem; margin: auto; margin-top: 50px">
+                <div class="card-header" id="cardHeader">Λεπτομέρειες καταχώρησης</div>
+                <div class="card-body">
+                    <!-- TITLE -->
+                    <div>
+                        <p style="margin-bottom: 10px; font-weight: bold;">Τίτλος</p>
+                        <p class="card-title" style="margin-bottom: 20px;" id='detailsTitle' contentEditable="true" ></p>
+                    </div>
+                    <div class="row g-3">
+                        <p class="col-md-2" style="margin-bottom: 30px; font-weight: bold;">Έναρξη</p>
+                        <div class="col-md-4" style="margin-top: 0px;">
+                            <label for="startDay" class="form-label"></label>
+                            <input type="date" class="form-control" id="detailsStartDay">
+                        </div>
+                        <div class="col-md-4" style="margin-top: 0px;">
+                            <label for="startTime" class="form-label"></label>
+                            <input type="time" class="form-control" id="detailsStartTime">
+                        </div>     
+                    </div>                        
+                    <div class="row g-3">
+                        <p  class="col-md-2" style="margin-bottom: 30px; font-weight: bold;">Λήξη</p>
+                        <div class="col-md-4" style="margin-top: 0px;">
+                            <label for="endDay" class="form-label"></label>
+                            <input type="date" class="form-control" id="detailsEndDay">
+                        </div>
+                        <div class="col-md-4" style="margin-top: 0px;">
+                            <label for="startTime" class="form-label"></label>
+                            <input type="time" class="form-control" id="detailsEndTime">
+                        </div>      
+                    </div>
+
+                    <!-- COLOR OPTIONS -->
+                    <div class="row g-3">
+                        <p  class="col-md-2" style="font-weight: bold;">Χρώμα</p>
+                        <select class="col-md-5"  name="color" class="form-control" id="colorDetails">
+                            <option style="color:#70c8fd;" value="#70c8fd">Μπλε</option>
+                            <option style="color:#57c683;" value="#57c683">Πράσινο</option>                         
+                            <option style="color:#fcdb21;" value="#fcdb21">Κίτρινο</option>
+                            <option style="color:#fa9820;" value="#fa9820">Πορτοκαλί</option>
+                            <option style="color:#ff6262;" value="#ff6262">Κόκκινο</option>                                   
+                            <option style="color:#9f77e7;" value="#9f77e7">Μωβ</option>                       
+                        </select>
+                    </div>
+                    <script>
+                        document.getElementById('colorDetails').addEventListener('change', function() {  this.style.color = this.value });
+                    </script>   
+
+                    <div class="row g-3" style="justify-content: space-around; margin-top: 20px;">
+                        <div class = "col-md-2" style="display: flex; height: fit-content;">
+                            <button type="button" id="deleteNote" class="btn btn-primary" style="background-color: #ca2626" onclick = "delNote()">
+                                Διαγραφή
+                            </button>
+                        </div>
+                        <div class = "col-md-2" style="display: flex;height: fit-content;">
+                            <button type="button" id="updateNote" class="btn btn-primary" style="background-color: #4ba2f8" onclick = "updNote()">
+                                Αποθήκευση
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+
+    let ec = new EventCalendar(document.getElementById('ec'), {
+    view: 'timeGridWeek',
+        height: '800px',
+        headerToolbar: {
+            start: 'prev,next today',
+            center: 'title',
+            end: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        },
+        
+        scrollTime: '09:00:00',
+        events: createEvents(),
+        views: {
+            timeGridWeek: {pointer: true},
+            
+        },
+        dayMaxEvents: true,
+        nowIndicator: true,
+        selectable: true
+});
+
+ec.setOption("eventClick", function setDetails(info){
+    
+    console.log(info)
+
+    //title
+    document.getElementById('detailsTitle').innerText =  info.event.title;
+    document.getElementById('detailsTitle').setAttribute('eventId', info.event.id);
+    //start and end time
+    document.getElementById('detailsStartDay').valueAsDate =  info.event.start;
+    document.getElementById('detailsEndDay').valueAsDate =  info.event.end;
+
+    //start and end time   
+    document.getElementById('detailsStartTime').value = formatTime(info.event.start);
+    document.getElementById('detailsEndTime').value = formatTime(info.event.end);
+   
+   //choose color
+   document.getElementById('cardHeader').style.backgroundColor =  info.event.backgroundColor;
+
+
+});
+
+function formatTime(date){
+    var hours = String(date.getHours()).padStart(2, '0');
+    var min = String(date.getMinutes()).padStart(2, '0');
+    var sec = String(date.getSeconds()).padStart(2, '0');
+
+    return hours + ":" +  min + ":" + sec;
+}
+
+function createEvents() {
+        let day1 = new Date("May 20, 2023 7:20:40");
+        let day2 = new Date("May 20, 2023 10:00:00");
+       
+        return [
+            {start: day1 , end: day2 , resourceId: 1, title: "The calendar can display background and regular events", color: "#70c8fd"}
+        ];
+}
+
+function getValues() {
+    let events = ec.getEvents();
+    console.log(events);
+}
+
+function setValues() {
+    //start day
+    var startD = document.getElementById('startDay').value 
+    var startT = document.getElementById('startTime').value
+    //concat in one field
+    var startDate = new Date(startD+' '+startT);
+
+    //end day
+    var endD = document.getElementById('endDay').value 
+    var endT = document.getElementById('endTime').value
+    //concat in one field
+    var endDate = new Date(endD +' '+ endT);
+
+    var newTitle = document.getElementById('newEntryTitle').value;
+    var col = document.getElementById('color').value;
+
+    let events = ec.getEvents();
+    ec.addEvent({start: startDate, end: endDate , title: newTitle, color:  col})
+}
+
+function updNote() {
+    
+    //start day
+    var startD = document.getElementById('detailsStartDay').value;
+    var startT = document.getElementById('detailsStartTime').value;
+    //concat in one field
+    var startDate = new Date(startD+' '+startT);
+
+    //end day
+    var endD = document.getElementById('detailsEndDay').value;
+    var endT = document.getElementById('detailsEndTime').value;
+    //concat in one field
+    var endDate = new Date(endD +' '+ endT);
+
+    //title
+    var title = document.getElementById('detailsTitle').innerText;
+    //get id 
+    var id = document.getElementById('detailsTitle').getAttribute('eventId');
+    
+    //change color
+    var col = document.getElementById('colorDetails').value
+
+    //update the note
+    ec.updateEvent({start: startDate, end: endDate , id: id, title: title, color: col})
+}
+
+function delNote(){
+
+    //get added attribute of id
+    var id = document.getElementById('detailsTitle').getAttribute('eventId');
+    //remove the note
+    ec.removeEventById( id);
+}
+
+</script>
+</body>
