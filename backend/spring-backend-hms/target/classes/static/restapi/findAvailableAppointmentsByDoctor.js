@@ -12,6 +12,20 @@
 
     example response:
 
+    {
+        "availableAppointments": 
+        [
+            {
+                "from": "16:00",
+                "to": "16:30"
+            },
+            {
+                "from":"19:00",
+                "to":"19:30"
+            }
+        ]
+    }
+
 */
 
 const doctor = {
