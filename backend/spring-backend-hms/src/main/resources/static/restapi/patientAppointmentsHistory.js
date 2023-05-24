@@ -47,14 +47,12 @@ example of response:
 axios.get('/restapi/patient_appointments_history')
     .then(function (response) {
 
-        console.log("got response: " + JSON.stringify(response.data));
-
         const history = response.data.history;
         
         history.forEach(element => {
             //write your code here
 
-            console.log("history: " + JSON.stringify(element))
+            console.log("History appointment of patient: " + JSON.stringify(element))
         });
     
     })
