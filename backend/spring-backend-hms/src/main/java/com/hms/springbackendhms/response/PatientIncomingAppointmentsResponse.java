@@ -13,5 +13,16 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PatientIncomingAppointmentsResponse {
+
+    /*
+    Fields
+
+        1) Prescriptions
+        2) Diagnoses
+        3) Medical Actions
+
+    must be empty
+    */
+
     ArrayList<PatientAppointment> incomingAppointments;
 }

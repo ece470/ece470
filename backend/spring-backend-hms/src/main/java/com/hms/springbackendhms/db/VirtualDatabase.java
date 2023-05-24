@@ -6,8 +6,39 @@ import com.hms.springbackendhms.user.Patient;
 import java.util.ArrayList;
 
 public class VirtualDatabase {
-    private static ArrayList<Patient> db = new ArrayList();
-    private static ArrayList<Doctor> doctorsDB = new ArrayList<>();
+    private static ArrayList<Patient> db = new ArrayList(
+            /*List.of(
+                    Patient
+                            .builder()
+                            .dob("2001")
+                            .address("Vassani")
+                            .amka("12345")
+                            .afm("123")
+                            .city("Volos")
+                            .tel("123")
+                            .password("123")
+                            .build()
+            )*/
+    );
+    private static ArrayList<Doctor> doctorsDB = new ArrayList<>(
+            /*List.of(
+                    Doctor
+                            .builder()
+                            .firstname("Tufts")
+                            .lastname("Fillipou")
+                            .email("fillipou@tufts.com")
+                            .tel("123")
+                            .amka("01130")
+                            .afm("123")
+                            .dob("2001")
+                            .id(0)
+                            .officeAddress("Boston")
+                            .officeCity("Boston")
+                            .password("123")
+                            .role(Role.USER)
+                            .build()
+            )*/
+    );
     public static void addPatient(Patient patient){
         db.add(patient);
     }
@@ -82,6 +113,15 @@ public class VirtualDatabase {
     public static Patient getPatient(String email){
         for(Patient patient : db){
             if(patient.getEmail().equals(email)){
+                return patient;
+            }
+        }
+        return null;
+    }
+
+    public static Patient findPatientByAmka(String amka){
+        for(Patient patient : db){
+            if(patient.getAmka().equals(amka)){
                 return patient;
             }
         }
