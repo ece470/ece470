@@ -50,31 +50,11 @@ public class PatientIncomingAppointments {
 
 
                     ArrayList<Diagnosis> diagnoses = new ArrayList<>();
-                    diagnoses.add(
-                            Diagnosis
-                                    .builder()
-                                    .details("High blood pressure")
-                                    .build()
-                    );
 
                     ArrayList<Prescription> prescriptions = new ArrayList<>();
-                    prescriptions.add(
-                            Prescription
-                                    .builder()
-                                    .medicine(Medicine.builder().id("h783hdn2").name("MedName").build())
-                                    .description("lorem ipsum")
-                                    .useUntil(new Date())
-                                    .build()
-                    );
 
                     ArrayList<MedicalAction> medicalActions = new ArrayList<>();
-                    medicalActions.add(
-                            MedicalAction
-                                    .builder()
-                                    .title("some title")
-                                    .details("details of medical action")
-                                    .build()
-                    );
+
 
                     ArrayList<PatientAppointment> appointments = new ArrayList<>();
                     appointments.add(
