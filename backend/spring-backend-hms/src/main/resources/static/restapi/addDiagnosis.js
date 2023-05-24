@@ -1,6 +1,45 @@
+/*
+    addDiagnosis sends a request on server 
+    searching for a patient, giving as input the 
+    amka (Health id) of the patient. If we find 
+    the patient, we add to them a diagnosis 
+    that has been defined by the doctor
 
-let addDiagnosisButton = document.getElementById("addDiagnosisButton");
+    Only doctors have access on this service, so they
+    must be connected with their credentials to perform
+    the request
 
-addDiagnosisButton.addEventListener("click", () => {
-    //check
-});
+    example response:
+
+    {
+        "status": 1
+    }
+
+    OR
+
+    {
+        "status": -1
+    }
+*/
+
+const diagnosis = {
+    amka: "12345",
+    diagnosis: "diagnosis details"
+
+};
+
+axios.post("/restapi/add_diagnosis", diagnosis)
+    .then((response) => {
+
+        const status = response.data.status;
+        // status = 1 -> success
+        // status = -1 -> fail
+        
+        // write code here
+          
+
+        console.log("status: " + status);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
