@@ -2,6 +2,8 @@ package com.hms.springbackendhms.controller;
 
 import com.hms.springbackendhms.config.JwtService;
 import com.hms.springbackendhms.db.VirtualDatabase;
+import com.hms.springbackendhms.doctor.DoctorService;
+import com.hms.springbackendhms.patient.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class MainPageController {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final DoctorService doctorService;
+    private final PatientService patientService;
     @GetMapping
     public String mainPage(
             @CookieValue(name = "token", defaultValue = "") String token
@@ -40,10 +44,10 @@ public class MainPageController {
                 // access database to get info about the user
                 // and return main page
 
-                if(VirtualDatabase.hasDoctor(userEmail)){
+                if(doctorService.findDoctorByEmail(userEmail).isPresent()){
                     return "homePageDoct";
                 }
-                if(VirtualDatabase.hasPatient(userEmail)){
+                if(patientService.findByEmail(userEmail).isPresent()){
                     return "homePagePatients";
                 }
                 return "index1";

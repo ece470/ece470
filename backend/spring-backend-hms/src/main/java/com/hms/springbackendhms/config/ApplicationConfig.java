@@ -1,7 +1,11 @@
 package com.hms.springbackendhms.config;
 
-import com.hms.springbackendhms.db.VirtualDatabase;
-import com.hms.springbackendhms.user.UserRepository;
+
+import com.hms.springbackendhms.doctor.Doctor;
+import com.hms.springbackendhms.doctor.DoctorService;
+import com.hms.springbackendhms.patient.Patient;
+import com.hms.springbackendhms.patient.PatientService;
+import com.hms.springbackendhms.user.User1Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,10 +20,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Optional;
+
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
-    private final UserRepository repository;
+    private final User1Repository repository;
+    private final PatientService patientService;
+    private final DoctorService doctorService;
     /*
     @Bean
     public UserDetailsService userDetailsService(){
@@ -35,11 +43,13 @@ public class ApplicationConfig {
     @Bean
     public UserDetailsService userDetailsService(){
         return username -> {
-          if(VirtualDatabase.hasDoctor(username)){
-              return VirtualDatabase.getDoctor(username);
+            Optional<Doctor> doctor = doctorService.findDoctorByEmail(username);
+          if(doctor.isPresent()){
+              return doctor.get();
           }
-          if(VirtualDatabase.hasPatient(username)){
-              return VirtualDatabase.getPatient(username);
+          Optional<Patient> patient = patientService.findByEmail(username);
+          if(patient.isPresent()){
+              return patient.get();
           }
           return null;
         };

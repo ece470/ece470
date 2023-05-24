@@ -37,4 +37,12 @@ public class DoctorService {
     public List<Appointment> getAppointments(Integer id, Date date) {
         return appointmentRepository.findAppointmentsByDoctor(id, date);
     }
+
+    public Optional<Doctor> findDoctorByEmail(String email) {
+        return doctorRepository.findDoctorByEmail(email);
+    }
+
+    public boolean has(Doctor doctor) {
+        return doctorRepository.findDoctorByEmail(doctor.getEmail()).isPresent();
+    }
 }

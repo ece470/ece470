@@ -1,11 +1,13 @@
 package com.hms.springbackendhms.restapi;
 
 import com.hms.springbackendhms.config.JwtService;
-import com.hms.springbackendhms.db.VirtualDatabase;
+//import com.hms.springbackendhms.db.VirtualDatabase;
+import com.hms.springbackendhms.doctor.DoctorService;
+import com.hms.springbackendhms.patient.Patient;
+import com.hms.springbackendhms.patient.PatientService;
 import com.hms.springbackendhms.request.AddPrescriptionRequest;
 import com.hms.springbackendhms.response.PatientResponse;
 import com.hms.springbackendhms.response.StatusResponse;
-import com.hms.springbackendhms.user.Patient;
 import com.hms.springbackendhms.util.Medicine;
 import com.hms.springbackendhms.util.Prescription;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/restapi/add_prescription")
@@ -21,6 +24,8 @@ import java.util.Date;
 public class AddPrescription {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final PatientService patientService;
+    private final DoctorService doctorService;
 
     @PostMapping
     public StatusResponse addPrescription(
@@ -40,12 +45,12 @@ public class AddPrescription {
 
             if (jwtService.isTokenValid(token, userDetails)) {
 
-                if (VirtualDatabase.hasDoctor(userEmail)) {
+                if (doctorService.findDoctorByEmail(userEmail).isPresent()) {
 
                     String userAmka = request.getAmka();
 
-                    Patient patient = VirtualDatabase.findPatientByAmka(userAmka);
-                    if(patient == null){
+                    Optional<Patient> patient = patientService.findPatientByAmka(Integer.parseInt(userAmka));
+                    if(patient.isEmpty()){
                         return StatusResponse
                                 .builder()
                                 .status(StatusResponse.FAIL)

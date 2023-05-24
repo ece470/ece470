@@ -1,7 +1,8 @@
 package com.hms.springbackendhms.controller;
 
 import com.hms.springbackendhms.config.JwtService;
-import com.hms.springbackendhms.db.VirtualDatabase;
+
+import com.hms.springbackendhms.patient.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AppointmentsPageController {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final PatientService patientService;
 
     @GetMapping
     public String appointments(
@@ -33,7 +35,7 @@ public class AppointmentsPageController {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
             if (jwtService.isTokenValid(token, userDetails)) {
 
-                if(VirtualDatabase.hasPatient(userEmail)){
+                if(patientService.findByEmail(userEmail).isPresent()){
                     return "appointments";
                 }
 

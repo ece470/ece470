@@ -2,6 +2,7 @@ package com.hms.springbackendhms.controller;
 
 import com.hms.springbackendhms.config.JwtService;
 import com.hms.springbackendhms.db.VirtualDatabase;
+import com.hms.springbackendhms.doctor.DoctorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MedicalActionPageController {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final DoctorService doctorService;
 
     @GetMapping
     public String newMedicalAction(
@@ -33,7 +35,7 @@ public class MedicalActionPageController {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
             if (jwtService.isTokenValid(token, userDetails)) {
 
-                if(VirtualDatabase.hasDoctor(userEmail)){
+                if(doctorService.findDoctorByEmail(userEmail).isPresent()){
                     System.out.println("Return new medical action");
                     return "newMedicalAction";
                 }

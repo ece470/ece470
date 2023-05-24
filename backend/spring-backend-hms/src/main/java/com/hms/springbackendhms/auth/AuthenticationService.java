@@ -1,24 +1,34 @@
 package com.hms.springbackendhms.auth;
 
 import com.hms.springbackendhms.config.JwtService;
-import com.hms.springbackendhms.db.VirtualDatabase;
+//import com.hms.springbackendhms.db.VirtualDatabase;
+import com.hms.springbackendhms.doctor.Doctor;
+import com.hms.springbackendhms.doctor.DoctorService;
+import com.hms.springbackendhms.patient.Patient;
+import com.hms.springbackendhms.patient.PatientService;
 import com.hms.springbackendhms.user.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ProblemDetail;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.sql.Date;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-    private final UserRepository repository;
+    private final User1Repository repository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final PatientService patientService;
+    private final DoctorService doctorService;
     public AuthenticationResponse register(RegisterRequest request) {
-        var user = User.builder()
+        var user = User1.builder()
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .email(request.getEmail())
@@ -47,15 +57,15 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPatientPassword()))
                 .role(Role.USER)
                 .tel(request.getPatientTel())
-                .dob(request.getPatientDob())
-                .afm(request.getPatientAfm())
-                .amka(request.getPatientAmka())
+                .dob(Date.valueOf(request.getPatientDob()))
+                .afm(Integer.parseInt(request.getPatientAfm()))
+                .amka(Integer.parseInt(request.getPatientAmka()))
                 .address(request.getPatientAddress())
                 .city(request.getPatientCity())
                 .build();
 
-        if(!VirtualDatabase.has(patient)) {
-            VirtualDatabase.addPatient(patient);
+        if(!patientService.has(patient)) {
+            patientService.addNewPatient(patient);
             var jwtToken = jwtService.generateToken(patient);
             return AuthenticationResponse.builder()
                     .token(jwtToken)
@@ -76,21 +86,21 @@ public class AuthenticationService {
         );
         System.out.println("Reached Authentication2");
 
-        var patient = VirtualDatabase.findByEmail(request.getEmail());
-        if(patient == null ){
-            var doctor = VirtualDatabase.findDoctorByEmail(request.getEmail());
-            if(doctor == null){
+        Optional<Patient> patient = patientService.findByEmail(request.getEmail());
+        if(patient.isEmpty()){
+            Optional<Doctor> doctor = doctorService.findDoctorByEmail(request.getEmail());
+            if(doctor.isEmpty()){
                 System.out.println("Auth Failed");
                 return null;
             }
             System.out.println("Reached doctor success");
-            var jwtToken = jwtService.generateToken(doctor);
+            var jwtToken = jwtService.generateToken(doctor.get());
             return AuthenticationResponse.builder()
                     .token(jwtToken)
                     .build();
         }
         System.out.println("Reached Patient success");
-        var jwtToken = jwtService.generateToken(patient);
+        var jwtToken = jwtService.generateToken(patient.get());
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
@@ -103,16 +113,16 @@ public class AuthenticationService {
                 .email(request.getDoctorEmail())
                 .password(passwordEncoder.encode(request.getDoctorPassword()))
                 .role(Role.USER)
-                .tel(request.getDoctorTel())
-                .dob(request.getDoctorDob())
-                .afm(request.getDoctorAfm())
-                .amka(request.getDoctorAmka())
-                .officeAddress(request.getDoctorAddress())
-                .officeCity(request.getDoctorCity())
+                .tel_office(request.getDoctorTel())
+                .dob_office(Date.valueOf(request.getDoctorDob()))
+                .afm_office(Integer.parseInt(request.getDoctorAfm()))
+                //.amka(request.getDoctorAmka())
+                .address_office(request.getDoctorAddress())
+                .city_office(request.getDoctorCity())
                 .build();
 
-        if(!VirtualDatabase.hasDoctor(doctor)) {
-            VirtualDatabase.addDoctor(doctor);
+        if(!doctorService.has(doctor)) {
+            doctorService.addNewDoctor(doctor);
             var jwtToken = jwtService.generateToken(doctor);
             return AuthenticationResponse.builder()
                     .token(jwtToken)

@@ -2,6 +2,7 @@ package com.hms.springbackendhms.restapi;
 
 import com.hms.springbackendhms.config.JwtService;
 import com.hms.springbackendhms.db.VirtualDatabase;
+import com.hms.springbackendhms.doctor.DoctorService;
 import com.hms.springbackendhms.response.DoctorAppointmentsHistoryResponse;
 import com.hms.springbackendhms.util.DoctorAppointment;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import java.util.Date;
 public class DoctorAppointmentsHistory {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final DoctorService doctorService;
     @GetMapping
     public DoctorAppointmentsHistoryResponse history(
             @CookieValue(name = "token", defaultValue = "") String token
@@ -36,7 +38,7 @@ public class DoctorAppointmentsHistory {
 
             if (jwtService.isTokenValid(token, userDetails)) {
 
-                if (VirtualDatabase.hasDoctor(userEmail)) {
+                if (doctorService.findDoctorByEmail(userEmail).isPresent()) {
                     // return the history of doctor
                     // ---------------------
                     // SELECT *

@@ -2,6 +2,7 @@ package com.hms.springbackendhms.restapi;
 
 import com.hms.springbackendhms.config.JwtService;
 import com.hms.springbackendhms.db.VirtualDatabase;
+import com.hms.springbackendhms.doctor.DoctorService;
 import com.hms.springbackendhms.response.DoctorAppointmentsHistoryResponse;
 import com.hms.springbackendhms.response.DoctorIncomingAppointmentsResponse;
 import com.hms.springbackendhms.util.DoctorAppointment;
@@ -23,6 +24,7 @@ public class DoctorIncomingAppointments {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final DoctorService doctorService;
 
     @GetMapping
     public DoctorIncomingAppointmentsResponse incomingAppointments(
@@ -40,7 +42,7 @@ public class DoctorIncomingAppointments {
 
             if (jwtService.isTokenValid(token, userDetails)) {
 
-                if (VirtualDatabase.hasDoctor(userEmail)) {
+                if (doctorService.findDoctorByEmail(userEmail).isPresent()) {
                     // return the incoming
                     // appointments of doctor
                     // ---------------------
@@ -48,6 +50,7 @@ public class DoctorIncomingAppointments {
                     // FROM DoctorAppointments
                     // where mail = userEmail
                     // AND date > now()
+
 
                     ArrayList<DoctorAppointment> appointments = new ArrayList<>();
                     appointments.add(DoctorAppointment.builder()

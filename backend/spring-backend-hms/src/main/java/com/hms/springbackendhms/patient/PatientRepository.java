@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface PatientRepository extends JpaRepository<Patient,Integer> {
 
     @Query("Select s from Patient s where s.amka = ?1")
-    Patient findPatientByAmka(int amka);
+    Optional<Patient> findPatientByAmka(int amka);
 
     @Query("Select s from Patient s where s.afm = ?1")
     Optional<Patient> findPatientByAfm(int afm);
