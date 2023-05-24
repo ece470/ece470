@@ -52,7 +52,7 @@ axios.get('/restapi/patient_appointments_history')
         history.forEach(element => {
             //write your code here
 
-            console.log("Appointments history of patient: " + JSON.stringify(element))
+            console.log("History appointment of patient: " + JSON.stringify(element))
         });
     
     })

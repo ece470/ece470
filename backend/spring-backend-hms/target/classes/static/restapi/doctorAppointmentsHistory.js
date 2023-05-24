@@ -24,7 +24,7 @@ axios.get('/restapi/doctor_appointments_history')
         const history = response.data.history;
 
         history.forEach(element => {
-            console.log("Appointments history of doctor: " + JSON.stringify(element))
+            console.log("History appointment of doctor: " + JSON.stringify(element))
         });
 
     })

@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="form-group">
                                     <!-- <label for="exampleFormControlTextarea1" style="text-align: left;">Example textarea</label> -->
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" readonly rows="3" style="resize: none;">Περιγραφή φαρμάκου...</textarea>
+                                    <textarea class="form-control" id="exampleFormControlTextarea" readonly rows="3" style="resize: none;">Περιγραφή φαρμάκου...</textarea>
                                 </div>       
                                 <div class="col-md-4" >
                                     <label for="date" class="form-label" >Λήψη έως:</label>
@@ -87,7 +87,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Στοιχεία Διάγνωσης</h5>
+                            <h5 class="modal-title" id="staticBackdropLabel1">Στοιχεία Διάγνωσης</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -115,7 +115,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Εκτέλεση Ιατρικής Πράξης</h5>
+                            <h5 class="modal-title" id="staticBackdropLabel2">Εκτέλεση Ιατρικής Πράξης</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -123,11 +123,13 @@
                                 <div class="dropdown">
                                     <div class="row g-3">
                                         <p  class="col-md-2" style="font-weight: bold; height:min-content;">Πράξη</p>
-                                        <select class="col-md-5"  name="actions" class="form-control" id="actionDetails">
-                                            <option value="action1">action1</option>
-                                            <option value="action2">action2</option>
-                                            <option value="action3">action3</option>                     
-                                        </select>
+                                        <div class="form-control">
+                                            <select class="col-md-5"  name="actions" id="actionDetails">
+                                                <option value="action1">action1</option>
+                                                <option value="action2">action2</option>
+                                                <option value="action3">action3</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <script>
                                         document.getElementById('actionDetails').addEventListener('change', function() {  this.style.color = this.value });
@@ -135,7 +137,7 @@
                                 </div>
                                 <div class="form-group">
                                     <!-- <label for="exampleFormControlTextarea1" style="text-align: left;">Example textarea</label> -->
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" style="resize: none;">Λεπτομέρειες ιατρικής πράξης...</textarea>
+                                    <textarea class="form-control" id="exampleFormControlTextarea2" rows="3" style="resize: none;">Λεπτομέρειες ιατρικής πράξης...</textarea>
                                 </div>       
                                 <div class="row g-3" style="text-align: center;">
                                     <p  class="col-md-5" style="font-weight: bold;">Ημερομηνία Εκτέλεσης</p>

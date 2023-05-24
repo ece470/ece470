@@ -92,4 +92,13 @@ public class VirtualDatabase {
         }
         return null;
     }
+
+    public static Patient findPatientByAmka(String amka){
+        for(Patient patient : db){
+            if(patient.getAmka().equals(amka)){
+                return patient;
+            }
+        }
+        return null;
+    }
 }
