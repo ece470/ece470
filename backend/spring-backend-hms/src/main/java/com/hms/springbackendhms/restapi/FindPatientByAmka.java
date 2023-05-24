@@ -25,12 +25,14 @@ public class FindPatientByAmka {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
-    @GetMapping
+    @PostMapping
     public PatientResponse findPatient(
             @CookieValue(name="token", defaultValue = "") String token,
             @RequestBody FindPatientRequest request
     )
     {
+        System.out.println("New request on findPatientByAmka");
+        System.out.println("Amka: " + request.getAmka());
         if(token.isBlank()){
             return null;
         }

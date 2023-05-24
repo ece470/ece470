@@ -11,8 +11,39 @@ import java.util.List;
 import java.util.Optional;
 
 public class VirtualDatabase {
-    private static ArrayList<Patient> db = new ArrayList();
-    private static ArrayList<Doctor> doctorsDB = new ArrayList<>();
+    private static ArrayList<Patient> db = new ArrayList(
+            /*List.of(
+                    Patient
+                            .builder()
+                            .dob("2001")
+                            .address("Vassani")
+                            .amka("12345")
+                            .afm("123")
+                            .city("Volos")
+                            .tel("123")
+                            .password("123")
+                            .build()
+            )*/
+    );
+    private static ArrayList<Doctor> doctorsDB = new ArrayList<>(
+            /*List.of(
+                    Doctor
+                            .builder()
+                            .firstname("Tufts")
+                            .lastname("Fillipou")
+                            .email("fillipou@tufts.com")
+                            .tel("123")
+                            .amka("01130")
+                            .afm("123")
+                            .dob("2001")
+                            .id(0)
+                            .officeAddress("Boston")
+                            .officeCity("Boston")
+                            .password("123")
+                            .role(Role.USER)
+                            .build()
+            )*/
+    );
     public static void addPatient(Patient patient){
         db.add(patient);
     }
