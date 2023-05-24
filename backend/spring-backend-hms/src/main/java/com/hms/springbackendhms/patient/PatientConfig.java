@@ -15,6 +15,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+import java.util.Optional;
 
 @Configuration
 public class PatientConfig {
@@ -48,15 +49,18 @@ public class PatientConfig {
                     Role.ADMIN
             );
             doctorRepository.saveAll(List.of(doctor));
+            Optional<Patient> patient1 = patientRepository.findPatientByAmka(1234);
+            if(patient1.isPresent()) {
 
-            Appointment appointment = new Appointment(
-                    Date.valueOf(LocalDate.of(2001, Month.NOVEMBER, 20)), Date.valueOf(LocalDate.of(2001, Month.NOVEMBER, 20)),
-                    "Ioylianoy 10",
-                    1234L,
-                    patientRepository.findPatientByAmka(1234),
-                    doctorRepository.findDoctorByAfm(1234)
-            );
-            repository.saveAll(List.of(appointment));
+                Appointment appointment = new Appointment(
+                        Date.valueOf(LocalDate.of(2001, Month.NOVEMBER, 20)), Date.valueOf(LocalDate.of(2001, Month.NOVEMBER, 20)),
+                        "Ioylianoy 10",
+                        1234L,
+                        patientRepository.findPatientByAmka(1234).get(),
+                        doctorRepository.findDoctorByAfm(1234)
+                );
+                repository.saveAll(List.of(appointment));
+            }
         };
     }
 }

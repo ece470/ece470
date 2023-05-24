@@ -71,11 +71,11 @@ public class Patient implements UserDetails {
         return address;
     }
 
-    public int getAfm() {
+    public Integer getAfm() {
         return afm;
     }
 
-    public int getAmka() {
+    public Integer getAmka() {
         return amka;
     }
 

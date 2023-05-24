@@ -6,7 +6,6 @@ import com.hms.springbackendhms.request.ExecuteMedicalActionRequest;
 import com.hms.springbackendhms.request.FindAvailableAppointmentsByDoctorRequest;
 import com.hms.springbackendhms.response.FindAvailableAppointmentsByDoctorResponse;
 import com.hms.springbackendhms.response.StatusResponse;
-import com.hms.springbackendhms.user.Patient;
 import com.hms.springbackendhms.util.Appointment;
 import com.hms.springbackendhms.util.Diagnosis;
 import lombok.RequiredArgsConstructor;

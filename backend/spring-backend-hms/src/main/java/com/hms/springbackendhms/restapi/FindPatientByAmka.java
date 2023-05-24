@@ -2,10 +2,10 @@ package com.hms.springbackendhms.restapi;
 
 import com.hms.springbackendhms.config.JwtService;
 import com.hms.springbackendhms.db.VirtualDatabase;
+import com.hms.springbackendhms.patient.Patient;
 import com.hms.springbackendhms.request.FindPatientRequest;
 import com.hms.springbackendhms.response.PatientIncomingAppointmentsResponse;
 import com.hms.springbackendhms.response.PatientResponse;
-import com.hms.springbackendhms.user.Patient;
 import com.hms.springbackendhms.util.Diagnosis;
 import com.hms.springbackendhms.util.MedicalAction;
 import com.hms.springbackendhms.util.PatientAppointment;
@@ -51,8 +51,8 @@ public class FindPatientByAmka {
                     if(patient != null){
                         return PatientResponse
                                 .builder()
-                                .afm(patient.getAfm())
-                                .amka(patient.getAmka())
+                                .afm(patient.getAfm().toString())
+                                .amka(patient.getAmka().toString())
                                 .city(patient.getCity())
                                 .tel(patient.getTel())
                                 .email(patient.getEmail())

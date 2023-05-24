@@ -5,7 +5,6 @@ import com.hms.springbackendhms.db.VirtualDatabase;
 import com.hms.springbackendhms.request.ExecuteMedicalActionRequest;
 import com.hms.springbackendhms.request.MakeAppointmentRequest;
 import com.hms.springbackendhms.response.StatusResponse;
-import com.hms.springbackendhms.user.Patient;
 import com.hms.springbackendhms.util.Appointment;
 import com.hms.springbackendhms.util.MedicalAction;
 import lombok.RequiredArgsConstructor;

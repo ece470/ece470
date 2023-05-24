@@ -1,7 +1,6 @@
 package com.hms.springbackendhms.controller;
 
 import com.hms.springbackendhms.config.JwtService;
-import com.hms.springbackendhms.db.VirtualDatabase;
 import com.hms.springbackendhms.doctor.DoctorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
