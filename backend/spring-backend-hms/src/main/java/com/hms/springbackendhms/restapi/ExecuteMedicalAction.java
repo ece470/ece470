@@ -1,8 +1,10 @@
 package com.hms.springbackendhms.restapi;
 
 import com.hms.springbackendhms.config.JwtService;
-import com.hms.springbackendhms.db.VirtualDatabase;
+//import com.hms.springbackendhms.db.VirtualDatabase;
+import com.hms.springbackendhms.doctor.DoctorService;
 import com.hms.springbackendhms.patient.Patient;
+import com.hms.springbackendhms.patient.PatientService;
 import com.hms.springbackendhms.request.AddDiagnosisRequest;
 import com.hms.springbackendhms.request.ExecuteMedicalActionRequest;
 import com.hms.springbackendhms.response.StatusResponse;
@@ -13,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/restapi/execute_medical_action")
 @RequiredArgsConstructor
@@ -20,6 +24,8 @@ public class ExecuteMedicalAction {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final DoctorService doctorService;
+    private final PatientService patientService;
 
     @PostMapping
     public StatusResponse executeMedicalAction(
@@ -38,12 +44,12 @@ public class ExecuteMedicalAction {
 
             if (jwtService.isTokenValid(token, userDetails)) {
 
-                if (VirtualDatabase.hasDoctor(userEmail)) {
+                if (doctorService.findDoctorByEmail(userEmail).isPresent()) {
 
                     String userAmka = request.getAmka();
 
-                    Patient patient = VirtualDatabase.findPatientByAmka(userAmka);
-                    if(patient == null){
+                    Optional<Patient> patient = patientService.findPatientByAmka(Integer.parseInt(userAmka));
+                    if(patient.isEmpty()){
                         return StatusResponse
                                 .builder()
                                 .status(StatusResponse.FAIL)
