@@ -1,0 +1,42 @@
+CREATE TABLE Patients_Info (
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   SecurityNumber int NOT NULL PRIMARY KEY,
+   AFMNumber int NOT NULL, 
+   LastName varchar(255) NOT NULL,
+   FirstName varchar(255) NOT NULL,
+   Email varchar(255) NOT NULL,
+   Dob date NOT NULL,
+   Address varchar(255) NOT NULL,
+   PostalCode varchar(5) NOT NULL, 
+   City varchar(255) NOT NULL,
+   DateOfBirth date NOT NULL,
+   PhoneNumber int NOT NULL,
+   CONSTRAINT invalidPostalCode CHECK (PostalCode >= 10000),
+   CONSTRAINT invalidPostalCode CHECK (PostalCode >= 99999),
+   CONSTRAINT invalidPhoneNumber CHECK (PhoneNumber >= 1000000000),
+   CONSTRAINT invalidPhoneNumber CHECK (PhoneNumber >= 9999999999) 
+
+);
+
+CREATE TABLE Doctors (
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT, #CHECK AUTOINCREMENT
+   SecurityNumber int NOT NULL,
+   AFMNumber int NOT NULL,
+   LastName varchar(255) NOT NULL,
+   FirstName varchar(255) NOT NULL,
+   Email varchar(255) NOT NULL,
+   DobOffice date NOT NULL,
+   CenterAddress varchar(255) NOT NULL,
+   PostalCode varchar(5),
+   City varchar(255) NOT NULL,
+   DateOfBirth date NOT NULL,
+   PhoneNumber int NOT NULL,
+   DoctorType varchar(255) NOT NULL,
+   UserType varchar(20) NOT NULL, 
+   FOREIGN KEY(UserType) REFERENCES UserType(UserType),
+   CONSTRAINT invalidPostalCode CHECK (PostalCode >= 10000),
+   CONSTRAINT invalidPostalCode CHECK (PostalCode >= 99999),
+   CONSTRAINT invalidPhoneNumber CHECK (PhoneNumber >= 1000000000),
+   CONSTRAINT invalidPhoneNumber CHECK (PhoneNumber >= 9999999999)
+
+);
