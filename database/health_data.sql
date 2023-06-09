@@ -85,17 +85,6 @@ CREATE TABLE UserType (
     CONSTRAINT invalidUserType CHECK (UserType IN ('Doctor','Patient','Admin'))
 );
 
-CREATE TABLE Appointment (
-    AppointmentDate date,
-    StartTime hour,  #check what type this is
-    EndTime hour, #check what type this is
-    #Location varchar(255) NOT NULL,
-    Patient varchar(100),
-    Doctor varchar(100),
-    Title varchar(255) NOT NULL,
-    FOREIGN KEY(PatientID) REFERENCES Patients_info(SecurityNumber),
-    FOREIGN KEY(DoctorID) REFERENCES Doctors(SecurityNumber)
-);
 
 CREATE TABLE Appointments (
     
