@@ -41,6 +41,7 @@ CREATE TABLE DrugPrescription (
 
 CREATE TABLE Exams (
     ExamDate date,
+    ExamTime time,
     ExamType varchar(1023),
     ExamInstructions varchar(1023),
     FOREIGN KEY(PatientID) REFERENCES Patients_info(SecurityNumber)
