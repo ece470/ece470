@@ -65,41 +65,102 @@
         
 
         <div id = "UpcomingAppointements" style="margin-top: 50px;">
-            <table class="table table-striped">
+            <table class="table table-striped" id="upcomingDocTable">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
+                    <!-- <th scope="col">#</th> -->
                     <th scope="col">Ονομα</th>
                     <th scope="col">Επώνυμο</th>
                     <th scope="col">Ημερομηνία</th>
                     <th scope="col">Ώρα</th>
                   </tr>
                 </thead>
-                <tbody>
+                <!-- <tbody>
                   <tr>
-                    <th scope="row">1</th>
+                    
                     <td>Ευθυμία</td>
                     <td>Παπαστεφάνου </td>
                     <td>08/05/2023</td>
                     <td>9:00</td>
                   </tr>
                   <tr>
-                    <th scope="row">2</th>
+                    
                     <td>Σπυρίδων</td>
                     <td>Χρηστόπουλος </td>
                     <td>08/05/2023</td>
                     <td>10:00</td>
                   </tr>
                   <tr>
-                    <th scope="row">3</th>
+                    
                     <td>Ιωάννης</td>
                     <td>Παπαδόπουλος</td>
                     <td>08/05/2023</td>
                     <td>10:30</td>
                   </tr>
-                </tbody>
+                </tbody> -->
               </table>
         </div>
+        <script>
+    
+          var incomingAppointments = 
+          [
+              {
+                  "patientFirstname": "Ilias",
+                  "patientLastname": "Lagomatis",
+                  "date": "Sept 24, 23 13:20:18"
+              },
+              {
+                  "patientFirstname": "Anastasia",
+                  "patientLastname": "Mallikopoulou",
+                  "date": "2023-05-24T08:44:19.741+00:00"
+              }
+          ]
+        
+          // upcomingDocTable.addEventListener('onLoad', function addRow() {
+          //loadBtn.addEventListener('click', function addRow() {
+          //  console.log(incomingAppointments);
+            incomingAppointments.forEach(element => {
+              
+              //separate time from DateTime object as hh:mm:ss
+              function formatTime(date){
+                var hours = String(date.getHours()).padStart(2, '0');
+                var min = String(date.getMinutes()).padStart(2, '0');
+                var sec = String(date.getSeconds()).padStart(2, '0');
+
+                return hours + ":" +  min + ":" + sec;
+              }
+              
+              //separate date from DateTime object as dd/mm/yyyy
+              function formatDate(date){
+                var day = String(date.getDate()).padStart(2, '0');
+                var month = String(date.getMonth()).padStart(2, '0');
+                var year = String(date.getFullYear()).padStart(4, '0');
+
+                return day + "/" +  month + "/" + year;
+              }
+
+
+
+              var tableRow = document.getElementById("upcomingDocTable");
+              //add new row at the end
+              var row = tableRow.insertRow(-1);
+              var cell1 = row.insertCell(0);
+              var cell2 = row.insertCell(1);
+              var cell3 = row.insertCell(2);
+              var cell4 = row.insertCell(3);
+              cell1.innerHTML = element.patientFirstname;
+              cell2.innerHTML = element.patientLastname;
+              var date = new Date(element.date);
+              cell3.innerHTML = formatDate(date);
+              cell4.innerHTML = formatTime(date);
+
+            });
+         // });
+
+          
+             
+          
+        </script>
 
         <div id = "HistoryAppointements" style="margin-top: 50px; display: none;">
             <table class="table table-striped">
@@ -155,5 +216,7 @@
 
 
     </script>
-    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="restapi/doctorAppointmentsHistory.js"></script>
+    <script src="restapi/doctorIncomingAppointments.js"></script>
 </html>
