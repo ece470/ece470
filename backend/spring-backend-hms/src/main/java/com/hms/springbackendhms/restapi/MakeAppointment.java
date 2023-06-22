@@ -26,7 +26,7 @@ public class MakeAppointment {
             @RequestBody MakeAppointmentRequest request
     )
     {
-        System.out.println(request.getFrom() + " - " + request.getTo());
+        System.out.println(request.date + " " + request.from + " " + request.to);
 
         if(token.isBlank()){
             return null;
@@ -44,8 +44,8 @@ public class MakeAppointment {
                     Appointment appointment =
                             Appointment
                                     .builder()
-                                    .from(request.getFrom())
-                                    .to(request.getTo())
+                                    .from("16:00")
+                                    .to("16:30")
                                     .build();
 
                     // add the appointment on database

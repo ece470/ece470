@@ -51,8 +51,8 @@ public class DoctorIncomingAppointments {
 
                     ArrayList<DoctorAppointment> appointments = new ArrayList<>();
                     appointments.add(DoctorAppointment.builder()
-                            .patientLastname("Lagomatis")
-                            .patientFirstname("Ilias")
+                            .patientLastname("Nikos")
+                            .patientFirstname("Koukos")
                             .date(new Date())
                             .build());
 

@@ -35,20 +35,19 @@
                     <div class="dropdown">
                         <div class="row g-3" style="justify-content: left;">
                             <p  class="col-md-2" style=" border: solid 3px #dedfe0; padding: 6px; background-color: #dedfe0; border-radius: 15%; margin-right: 5px;">Πόλη</p>
-                            <div class="form-control">
-                                <select class="col-md-5" style="height: 40px;  width: 80%;"  name="city" id="city">
-                                    <option value="Αθήνα">Αθήνα</option>
-                                    <option value="Θεσσαλονίκη">Θεσσαλονίκη</option>
-                                    <option value="Πάτρα">Πάτρα</option>
-                                    <option value="Ηράκλειο">Ηράκλειο</option>
-                                    <option value="Λάρισα">Λάρισα</option>
-                                    <option value="Βόλος">Βόλος</option>
-                                    <option value="Ιωάννινα">Ιωάννινα</option>
-                                    <option value="Τρίκαλα">Τρίκαλα</option>
-                                    <option value="Χαλκίδα">Χαλκίδα</option>
-                                    <option value="Σέρρες">Σέρρες</option>
-                                </select>
-                            </div>
+                
+                            <select class="form-control col-md-5" style="height: 40px;  width: 80%;"  name="city" id="city">
+                                <option value="Αθήνα">Αθήνα</option>
+                                <option value="Θεσσαλονίκη">Θεσσαλονίκη</option>
+                                <option value="Πάτρα">Πάτρα</option>
+                                <option value="Ηράκλειο">Ηράκλειο</option>
+                                <option value="Λάρισα">Λάρισα</option>
+                                <option value="Βόλος">Βόλος</option>
+                                <option value="Ιωάννινα">Ιωάννινα</option>
+                                <option value="Τρίκαλα">Τρίκαλα</option>
+                                <option value="Χαλκίδα">Χαλκίδα</option>
+                                <option value="Σέρρες">Σέρρες</option>
+                            </select>                            
                         </div>
                         <script>
                             document.getElementById('city').addEventListener('change', function() {  this.style.color = this.value });
@@ -58,18 +57,18 @@
                     <div class="dropdown">
                         <div class="row g-3" style="justify-content: left;">
                             <p  class="col-md-2" style="width: fit-content; border: solid 3px #dedfe0; padding: 6px; background-color: #dedfe0; border-radius: 15%; margin-right: 5px;">Ειδικότητα</p>
-                            <div class="form-control">
-                                <select class="col-md-5" style="height: 40px; width: 60%;"  name="specialisation" id="specialisation">
-                                    <option value="Παθολόγος">Παθολόγος</option>
-                                    <option value="Καρδιολόγος">Καρδιολόγος</option>
-                                    <option value="ΩΡΛ">ΩΡΛ</option>
-                                    <option value="Νευρολόγος">Νευρολόγος</option>
-                                    <option value="Ορθοπεδικός">Ορθοπεδικός</option>
-                                    <option value="Γυναικολόγος">Γυναικολόγος</option>
-                                    <option value="Δερματολόγος">Δερματολόγος</option>
-                                    <option value="Οδοντίατρος">Οδοντίατρος</option>
-                                </select>
-                            </div>
+                            
+                            <select class="form-control col-md-5" style="height: 40px; width: 60%;"  name="specialisation" id="specialisation">
+                                <option value="Παθολόγος">Παθολόγος</option>
+                                <option value="Καρδιολόγος">Καρδιολόγος</option>
+                                <option value="ΩΡΛ">ΩΡΛ</option>
+                                <option value="Νευρολόγος">Νευρολόγος</option>
+                                <option value="Ορθοπεδικός">Ορθοπεδικός</option>
+                                <option value="Γυναικολόγος">Γυναικολόγος</option>
+                                <option value="Δερματολόγος">Δερματολόγος</option>
+                                <option value="Οδοντίατρος">Οδοντίατρος</option>
+                            </select>
+                            
                         </div>
                         <script>
                             document.getElementById('specialisation').addEventListener('change', function() {  this.style.color = this.value });
@@ -85,16 +84,20 @@
                     
                     <div class="dropdown">
                         <div class="row g-3" style="margin-left: 20%; margin-bottom: 20px;">
-                            <div class="form-control">
-                                <select class="col-md-5" style="height: 40px; width: 75%;"  name="dates"  id="dates">
-                                    <option value="date1">date1</option>
+                            <!-- <div class="form-control"> -->
+                                <select class="form-control col-md-5" style="height: 40px; width: 75%;"  name="dates"  id="dates">
+                                    <option value="none" selected disabled hidden>Επιλέξτε ημερομηνία</option>
+                                    <!-- <option value="date1">date1</option>
                                     <option value="date2">date2</option>
-                                    <option value="date3">date3</option>
+                                    <option value="date3">date3</option> -->
                                 </select>
-                            </div>
+                            <!-- </div> -->
                         </div>
                         <script>
-                            document.getElementById('dates').addEventListener('change', function() {  this.style.color = this.value });
+                            document.getElementById('dates').addEventListener('change', function() {  
+                                this.style.color = this.value;
+                                console.log("chose value " +  this.value); 
+                            });
                         </script>
                         <button type="button" class="btn btn-info" id="setButton">Καταχώρηση</button>
                     </div>
@@ -105,17 +108,7 @@
 
     </body>
 
-    <script>
-        searchButton.addEventListener('click', function() {  
-            console.log('Hello');
-            var name = document.getElementById('doctName').value;
-            var lastName = document.getElementById('doctLastName').value;
-            var city = document.getElementById('city').value;
-            var specialisation = document.getElementById('specialisation').value;
-
-            console.log(name + " " + lastName + ' ' + city + ' ' + specialisation);
-        });
-
+    <!-- <script>
         setButton.addEventListener('click', function() {  
            
             var date = document.getElementById('dates').value;
@@ -123,9 +116,9 @@
             console.log(date);
         });
 
-
     </script>
+     -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="restapi/findAvailableAppointmentsByDoctor.js"></script>
+    <script src="/restapi/findAvailableAppointmentsByDoctor.js"></script>
     <script src="restapi/makeAppointment.js"></script>
 </html>

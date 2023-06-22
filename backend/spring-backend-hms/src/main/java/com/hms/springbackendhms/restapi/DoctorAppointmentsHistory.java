@@ -25,6 +25,7 @@ public class DoctorAppointmentsHistory {
     public DoctorAppointmentsHistoryResponse history(
             @CookieValue(name = "token", defaultValue = "") String token
     ) {
+        System.out.println("Doctor Appointments History req1");
         if(token.isBlank()){
             return null;
         }
@@ -35,7 +36,7 @@ public class DoctorAppointmentsHistory {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
             if (jwtService.isTokenValid(token, userDetails)) {
-
+                System.out.println("Doctor Appointments History req2");
                 if (VirtualDatabase.hasDoctor(userEmail)) {
                     // return the history of doctor
                     // ---------------------
@@ -43,7 +44,7 @@ public class DoctorAppointmentsHistory {
                     // FROM DoctorAppointments
                     // where mail = userEmail
                     // AND date < now()
-
+                    System.out.println("Doctor Appointments History req3");
                     ArrayList<DoctorAppointment> appointments = new ArrayList<>();
                     appointments.add(DoctorAppointment.builder()
                             .patientLastname("Lagomatis")

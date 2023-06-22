@@ -23,26 +23,33 @@
     }
 */
 
-const prescription = {
-    amka: "12345",
-    medicine: "medName",
-    description: "details about prescription",
-    useUntil: "date"
 
-};
 
-axios.post("/restapi/add_prescription", prescription)
-    .then((response) => {
+drugBtn.addEventListener('click', function() {
 
-        const status = response.data.status;
-        // status = 1 -> success
-        // status = -1 -> fail
-        
-        // write code here
-          
+    const prescription = {
+        amka: document.getElementById('amka').value,
+        medicine: document.getElementById('drugCode').value,
+        description: document.getElementById('drugDescription').value,
+        useUntil: document.getElementById('drugDate').value
+    
+    };
 
-        console.log("status: " + status);
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
+    axios.post("/restapi/add_prescription", prescription)
+        .then((response) => {
+
+            const status = response.data.status;
+            if(status == 1){
+                console.log("success");
+            }
+            else{
+                console.log("fail");
+            }
+            
+
+            console.log("status: " + status);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+});

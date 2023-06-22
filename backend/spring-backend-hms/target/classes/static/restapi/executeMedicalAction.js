@@ -20,26 +20,32 @@
     {
         "status": -1
     }
-*/
+*/                                                     
 
-const medicalAction = {
-    amka: "12345",
-    title: "title of medical action",
-    details: "details of medical action"
-};
 
-axios.post("/restapi/execute_medical_action", medicalAction)
-    .then((response) => {
 
-        const status = response.data.status;
-        // status = 1 -> success
-        // status = -1 -> fail
-        
-        // write code here
-          
+actionBtn.addEventListener('click', function() {
+    const medicalAction = {
+        amka: document.getElementById('amka').value,
+        title: document.getElementById('actionName').value,
+        details: document.getElementById('actionDetails').value,
+        date: document.getElementById('actionDate').value
+    };
+    axios.post("/restapi/execute_medical_action", medicalAction)
+        .then((response) => {
 
-        console.log("status: " + status);
-    })
-    .catch(function (error) {
-        console.log(error);
+            const status = response.data.status;
+            if(status == 1){
+                console.log("success");
+            }
+            else{
+                console.log("fail");
+            }
+
+            console.log("status: " + status);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     });
+        

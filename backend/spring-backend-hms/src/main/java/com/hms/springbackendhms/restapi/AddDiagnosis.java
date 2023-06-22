@@ -44,7 +44,7 @@ public class AddDiagnosis {
                 if (VirtualDatabase.hasDoctor(userEmail)) {
 
                     String userAmka = request.getAmka();
-
+                    System.out.println("Amka add diagnosis: " + userAmka);
                     Patient patient = VirtualDatabase.findPatientByAmka(userAmka);
                     if(patient == null){
                         return StatusResponse

@@ -28,24 +28,41 @@
 
 */
 
-const doctor = {
-    "doctorFirstname": "Anastasia",
-    "doctorLastname": "Mallikopoulou",
-    "doctorSpecialisation": "Pediatrician",
-    "officeCity": "Trikala"
-}
 
-axios.post("/restapi/find_available_appointments_by_doctor", doctor)
-    .then((response) => {
-        console.log("Response " + JSON.stringify(response.data));
+
+searchButton.addEventListener('click', function() { 
+    
+    const doctor = {
+        doctorFirstname: document.getElementById('doctName').value,
+        doctorLastname: document.getElementById('doctLastName').value,
+        doctorSpecialisation:  document.getElementById('specialisation').value,
+        officeCity: document.getElementById('city').value
+    };
+
+    axios.post("/restapi/find_available_appointments_by_doctor", doctor)
+        .then((response) => {
+            
         const appointments = response.data.availableAppointments;
-
+    
         appointments.forEach(appointment => {
-            console.log("Available appointment: " + appointment.from + " - " + appointment.to);
+
             // write code here
+            let option = document.createElement("option");
+            //set the value we return when selected
+            option.setAttribute('from', appointment.from);
+            option.setAttribute('to', appointment.to);
+            option.setAttribute('date', appointment.date);
+            //append the list
+            let optionText = document.createTextNode(appointment.date + " " + appointment.from + " " + appointment.to );
+            option.appendChild(optionText);
+          
+            dates.appendChild(option);
+
+            console.log(option.date + " " + option.from + " " + option.to);
         });
-                  
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
+                    
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+});

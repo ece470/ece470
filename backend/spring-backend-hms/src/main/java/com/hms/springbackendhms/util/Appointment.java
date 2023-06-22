@@ -12,6 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Appointment {
+    Date date;
     String from;
     String to;
 }

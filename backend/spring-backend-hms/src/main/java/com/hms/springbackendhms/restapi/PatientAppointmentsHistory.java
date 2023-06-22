@@ -49,30 +49,41 @@ public class PatientAppointmentsHistory {
                     // AND date < now()
 
 
-                    ArrayList<Diagnosis> diagnoses = new ArrayList<>();
-                    diagnoses.add(
+                    ArrayList<Diagnosis> diagnoses1 = new ArrayList<>();
+                    diagnoses1.add(
                             Diagnosis
                                     .builder()
                                     .details("High blood pressure")
                                     .build()
                     );
 
-                    ArrayList<Prescription> prescriptions = new ArrayList<>();
-                    prescriptions.add(
+                    ArrayList<Prescription> prescriptions1 = new ArrayList<>();
+
+                    ArrayList<MedicalAction> medicalActions1 = new ArrayList<>();
+
+                    ArrayList<Diagnosis> diagnoses2 = new ArrayList<>();
+
+                    ArrayList<Prescription> prescriptions2 = new ArrayList<>();
+                    prescriptions2.add(
                             Prescription
                                     .builder()
-                                    .medicine(Medicine.builder().id("h783hdn2").name("MedName").build())
                                     .description("lorem ipsum")
                                     .useUntil(new Date())
+                                    .medicine(
+                                            Medicine.builder().name("Depon").id("4321").build()
+                                    )
                                     .build()
                     );
+                    ArrayList<MedicalAction> medicalActions2 = new ArrayList<>();
 
-                    ArrayList<MedicalAction> medicalActions = new ArrayList<>();
-                    medicalActions.add(
+                    ArrayList<Diagnosis> diagnoses3 = new ArrayList<>();
+                    ArrayList<Prescription> prescriptions3 = new ArrayList<>();
+                    ArrayList<MedicalAction> medicalActions3 = new ArrayList<>();
+                    medicalActions3.add(
                             MedicalAction
                                     .builder()
-                                    .title("some title")
-                                    .details("details of medical action")
+                                    .title("Emvolio")
+                                    .details("covid 19")
                                     .build()
                     );
 
@@ -84,9 +95,35 @@ public class PatientAppointmentsHistory {
                                     .doctorLastname("Mallikopoulou")
                                     .date(new Date())
                                     .doctorSpecialisation("Cardiologist")
-                                    .diagnoses(diagnoses)
-                                    .medicalActions(medicalActions)
-                                    .prescriptions(prescriptions)
+                                    .diagnoses(diagnoses1)
+                                    .medicalActions(medicalActions1)
+                                    .prescriptions(prescriptions1)
+                                    .build()
+                    );
+
+                    history.add(
+                            PatientAppointment
+                                    .builder()
+                                    .doctorFirstname("Kalli")
+                                    .doctorLastname("Yannikoglou")
+                                    .date(new Date())
+                                    .doctorSpecialisation("Paediatrician")
+                                    .diagnoses(diagnoses2)
+                                    .medicalActions(medicalActions2)
+                                    .prescriptions(prescriptions2)
+                                    .build()
+                    );
+
+                    history.add(
+                            PatientAppointment
+                                    .builder()
+                                    .doctorFirstname("Nikos")
+                                    .doctorLastname("Koukos")
+                                    .date(new Date())
+                                    .doctorSpecialisation("Orthopedic")
+                                    .diagnoses(diagnoses3)
+                                    .medicalActions(medicalActions3)
+                                    .prescriptions(prescriptions3)
                                     .build()
                     );
 

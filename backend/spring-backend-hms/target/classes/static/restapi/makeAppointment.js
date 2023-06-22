@@ -23,23 +23,34 @@
     (for fail)
 */
 
-const medicalAction = {
-    from: "19:30",
-    to: "20:00"
-};
 
-axios.post("/restapi/make_appointment", medicalAction)
-    .then((response) => {
+// const medicalAction = {
+//     from: "19:30",
+//     to: "20:00"
+// };
 
-        const status = response.data.status;
-        // status = 1 -> success
-        // status = -1 -> fail
-        
-        // write code here
-          
 
-        console.log("status: " + status);
-    })
-    .catch(function (error) {
-        console.log(error);
+setButton.addEventListener('click', function(){
+    let words = document.getElementById('dates').value.split(" ");
+    const request = {
+        date: words[0],
+        from: words[1],
+        to: words[2]
+    };
+    
+    axios.post("/restapi/make_appointment", request)
+        .then((response) => {
+
+            const status = response.data.status;
+            // status = 1 -> success
+            // status = -1 -> fail
+            
+            // write code here
+            
+
+            console.log("status: " + status);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     });

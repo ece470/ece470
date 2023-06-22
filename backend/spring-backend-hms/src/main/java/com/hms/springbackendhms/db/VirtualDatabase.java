@@ -2,8 +2,13 @@ package com.hms.springbackendhms.db;
 
 import com.hms.springbackendhms.user.Doctor;
 import com.hms.springbackendhms.user.Patient;
+import com.hms.springbackendhms.user.Role;
+import com.hms.springbackendhms.user.User;
 
+import javax.print.Doc;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class VirtualDatabase {
     private static ArrayList<Patient> db = new ArrayList(

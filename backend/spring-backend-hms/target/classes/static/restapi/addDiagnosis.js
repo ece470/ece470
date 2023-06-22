@@ -22,24 +22,33 @@
     }
 */
 
-const diagnosis = {
-    amka: "12345",
-    diagnosis: "diagnosis details"
 
-};
 
-axios.post("/restapi/add_diagnosis", diagnosis)
-    .then((response) => {
+diagnosisBtn.addEventListener('click', function() {
+    
+    const diagnosis = {
+        amka: document.getElementById('amka').value,
+        diagnosis: document.getElementById('diagnosisDetails').value
+    };
 
-        const status = response.data.status;
-        // status = 1 -> success
-        // status = -1 -> fail
-        
-        // write code here
-          
+    axios.post("/restapi/add_diagnosis", diagnosis)
+        .then((response) => {
 
-        console.log("status: " + status);
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
+            const status = response.data.status;
+            // status = 1 -> success
+            // status = -1 -> fail
+            
+            // write code here
+            if(status == 1){
+                console.log("success");
+            }
+            else{
+                console.log("fail");
+            }
+            console.log("status: " + status);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+});
+       

@@ -47,7 +47,7 @@ public class FindPatientByAmka {
                 if (VirtualDatabase.hasDoctor(userEmail)) {
                     String userAmka = request.getAmka();
 
-                    Patient patient = VirtualDatabase.findPatientByAmka(userAmka);
+                    /*Patient patient = VirtualDatabase.findPatientByAmka(userAmka);
                     if(patient != null){
                         return PatientResponse
                                 .builder()
@@ -60,7 +60,18 @@ public class FindPatientByAmka {
                                 .firstname(patient.getFirstname())
                                 .lastname(patient.getLastname())
                                 .build();
-                    }
+                    }*/
+                    return PatientResponse
+                            .builder()
+                            .amka(userAmka)
+                            .afm("userafm")
+                            .city("Volos")
+                            .tel("6901010101")
+                            .email("koukos@mail.com")
+                            .address("G. Kartali")
+                            .firstname("Nikos")
+                            .lastname("Koukos")
+                            .build();
                 }
             }
         }

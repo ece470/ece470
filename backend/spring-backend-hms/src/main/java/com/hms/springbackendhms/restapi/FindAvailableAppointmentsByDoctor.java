@@ -54,12 +54,14 @@ public class FindAvailableAppointmentsByDoctor {
 
                     Appointment appointment1 = Appointment
                             .builder()
+                            .date(new Date())
                             .from("16:00")
                             .to("16:30")
                             .build();
 
                     Appointment appointment2 = Appointment
                             .builder()
+                            .date(new Date())
                             .from("19:00")
                             .to("19:30")
                             .build();
