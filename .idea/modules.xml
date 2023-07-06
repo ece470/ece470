@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ece470.iml" filepath="$PROJECT_DIR$/.idea/ece470.iml" />
+      <module fileurl="file://$PROJECT_DIR$/backend/spring-backend-hms/spring-backend-hms.iml" filepath="$PROJECT_DIR$/backend/spring-backend-hms/spring-backend-hms.iml" />
     </modules>
   </component>
 </project>
