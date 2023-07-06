@@ -1,17 +1,16 @@
 package com.hms.springbackendhms.auth;
 
 import com.hms.springbackendhms.config.JwtService;
-//import com.hms.springbackendhms.db.VirtualDatabase;
 import com.hms.springbackendhms.doctor.Doctor;
 import com.hms.springbackendhms.doctor.DoctorService;
 import com.hms.springbackendhms.patient.Patient;
 import com.hms.springbackendhms.patient.PatientService;
-import com.hms.springbackendhms.user.*;
+import com.hms.springbackendhms.user.Role;
+import com.hms.springbackendhms.user.User1;
+import com.hms.springbackendhms.user.User1Repository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ProblemDetail;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +20,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-    private final User1Repository repository;
+    //private final User1Repository repository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;

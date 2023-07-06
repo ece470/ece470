@@ -1,15 +1,12 @@
 package com.hms.springbackendhms.restapi;
 
+import com.hms.springbackendhms.appointment.Appointment;
 import com.hms.springbackendhms.appointment.AppointmentService;
 import com.hms.springbackendhms.config.JwtService;
-//import com.hms.springbackendhms.db.VirtualDatabase;
 import com.hms.springbackendhms.patient.Patient;
 import com.hms.springbackendhms.patient.PatientService;
-import com.hms.springbackendhms.request.ExecuteMedicalActionRequest;
 import com.hms.springbackendhms.request.MakeAppointmentRequest;
 import com.hms.springbackendhms.response.StatusResponse;
-import com.hms.springbackendhms.appointment.Appointment;
-import com.hms.springbackendhms.util.MedicalAction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

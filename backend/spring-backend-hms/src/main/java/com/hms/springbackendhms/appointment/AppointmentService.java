@@ -3,7 +3,6 @@ package com.hms.springbackendhms.appointment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 @Service

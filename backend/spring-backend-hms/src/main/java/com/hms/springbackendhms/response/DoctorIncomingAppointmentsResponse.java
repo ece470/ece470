@@ -1,7 +1,6 @@
 package com.hms.springbackendhms.response;
 
 import com.hms.springbackendhms.appointment.Appointment;
-import com.hms.springbackendhms.util.DoctorAppointment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

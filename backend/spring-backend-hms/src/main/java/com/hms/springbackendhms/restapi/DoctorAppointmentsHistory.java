@@ -1,12 +1,9 @@
 package com.hms.springbackendhms.restapi;
 
 import com.hms.springbackendhms.appointment.Appointment;
-import com.hms.springbackendhms.appointment.AppointmentService;
 import com.hms.springbackendhms.config.JwtService;
-//import com.hms.springbackendhms.db.VirtualDatabase;
 import com.hms.springbackendhms.doctor.DoctorService;
 import com.hms.springbackendhms.response.DoctorAppointmentsHistoryResponse;
-import com.hms.springbackendhms.util.DoctorAppointment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("/restapi/doctor_appointments_history")
