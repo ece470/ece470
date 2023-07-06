@@ -40,13 +40,11 @@ public class ApplicationConfig {
     @Bean
     public UserDetailsService userDetailsService(){
         return username -> {
-            Optional<Doctor> doctor = doctorService.findDoctorByEmail(username);
-          if(doctor.isPresent()){
-              return doctor.get();
+          if(doctorService.findDoctorByEmail(username).isPresent()){
+              return doctorService.findDoctorByEmail(username).get();
           }
-          Optional<Patient> patient = patientService.findPatientByEmail(username);
-          if(patient.isPresent()){
-              return patient.get();
+          if(patientService.findPatientByEmail(username).isPresent()){
+              return patientService.findPatientByEmail(username).get();
           }
           return null;
         };

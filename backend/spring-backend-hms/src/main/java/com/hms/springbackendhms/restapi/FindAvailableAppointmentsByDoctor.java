@@ -5,7 +5,7 @@ import com.hms.springbackendhms.config.JwtService;
 import com.hms.springbackendhms.patient.PatientService;
 import com.hms.springbackendhms.request.FindAvailableAppointmentsByDoctorRequest;
 import com.hms.springbackendhms.response.FindAvailableAppointmentsByDoctorResponse;
-import com.hms.springbackendhms.util.Appointment;
+import com.hms.springbackendhms.appointment.Appointment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -51,14 +51,14 @@ public class FindAvailableAppointmentsByDoctor {
 
                     Appointment appointment1 = Appointment
                             .builder()
-                            .from("16:00")
-                            .to("16:30")
+                            .start_time("16:00")
+                            .end_time("16:30")
                             .build();
 
                     Appointment appointment2 = Appointment
                             .builder()
-                            .from("19:00")
-                            .to("19:30")
+                            .start_time("19:00")
+                            .end_time("19:30")
                             .build();
 
                     ArrayList<Appointment> appointments =

@@ -7,7 +7,6 @@ import com.hms.springbackendhms.patient.Patient;
 import com.hms.springbackendhms.patient.PatientService;
 import com.hms.springbackendhms.user.Role;
 import com.hms.springbackendhms.user.User1;
-import com.hms.springbackendhms.user.User1Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

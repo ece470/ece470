@@ -1,7 +1,6 @@
 package com.hms.springbackendhms.restapi;
 
 import com.hms.springbackendhms.appointment.Appointment;
-import com.hms.springbackendhms.appointment.AppointmentService;
 import com.hms.springbackendhms.config.JwtService;
 import com.hms.springbackendhms.doctor.DoctorService;
 import com.hms.springbackendhms.response.DoctorIncomingAppointmentsResponse;

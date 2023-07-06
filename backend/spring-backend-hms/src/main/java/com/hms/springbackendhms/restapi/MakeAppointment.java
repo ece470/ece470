@@ -48,8 +48,8 @@ public class MakeAppointment {
                     Appointment appointment =
                             Appointment
                                     .builder()
-                                    .from(request.getFrom())
-                                    .to(request.getTo())
+                                    .start_time(request.getFrom())
+                                    .end_time(request.getTo())
                                     .patient(patient.get())
                                     .build();
 

@@ -19,12 +19,12 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String from;
-    private String to;
+    private String start_time;
+    private String end_time;
     private String title;
     private Long Hex_colored;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinTable(name = "patient_appoint",
             joinColumns = @JoinColumn(name = "appoint_id"),
             inverseJoinColumns = @JoinColumn(name = "patient_id"))
@@ -32,15 +32,15 @@ public class Appointment {
 
 
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinTable(name = "doc_appoint",
             joinColumns = @JoinColumn(name = "appoint_id"),
             inverseJoinColumns = @JoinColumn(name = "doc_id"))
     private Doctor doctor;
 
     public Appointment(String start_time, String end_time, String title, Long hex_colored, Patient patient, Doctor doctor) {
-        this.from = start_time;
-        this.to = end_time;
+        this.start_time = start_time;
+        this.end_time = end_time;
         this.title = title;
         Hex_colored = hex_colored;
         this.patient = patient;
@@ -58,12 +58,12 @@ public class Appointment {
         Hex_colored = hex_colored;
     }
 
-    public String getFrom() {
-        return from;
+    public String getstart_time() {
+        return start_time;
     }
 
-    public String getTo() {
-        return to;
+    public String getend_time() {
+        return end_time;
     }
 
     public String getTitle() {

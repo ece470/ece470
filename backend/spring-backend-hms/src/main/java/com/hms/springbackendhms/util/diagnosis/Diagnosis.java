@@ -28,6 +28,7 @@ public class Diagnosis {
             inverseJoinColumns = @JoinColumn(name = "patient_id"))
     private Patient patient;
 
+
     public Diagnosis(String details, Patient patient) {
         this.details = details;
         this.patient = patient;
