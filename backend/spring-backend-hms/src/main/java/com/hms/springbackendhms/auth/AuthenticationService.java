@@ -86,7 +86,7 @@ public class AuthenticationService {
         );
         System.out.println("Reached Authentication2");
 
-        Optional<Patient> patient = patientService.findByEmail(request.getEmail());
+        Optional<Patient> patient = patientService.findPatientByEmail(request.getEmail());
         if(patient.isEmpty()){
             Optional<Doctor> doctor = doctorService.findDoctorByEmail(request.getEmail());
             if(doctor.isEmpty()){

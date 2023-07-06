@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.List;
+import java.util.ArrayList;
 
 @Service
 public class AppointmentService {
@@ -16,11 +16,11 @@ public class AppointmentService {
         this.appointmentRepository = appointmentRepository;
     }
 
-    public List<Appointment> getAppointments() {
-        return appointmentRepository.findAll();
+    public ArrayList<Appointment> getAppointments() {
+        return new ArrayList<Appointment>(appointmentRepository.findAll());
     }
-
-    public List<Appointment> AppointmentsAfterDatePatient(int id, Date date) {
-        return appointmentRepository.findByDateforPatient(id,date);
+    public boolean saveAppoint(Appointment appointment) {
+        Appointment check = appointmentRepository.save(appointment);
+        return appointmentRepository.findById(check.getId()).isPresent();
     }
 }

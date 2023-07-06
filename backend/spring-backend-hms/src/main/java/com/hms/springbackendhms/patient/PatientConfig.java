@@ -97,7 +97,7 @@ public class PatientConfig {
             if(patient1.isPresent()) {
 
                 Appointment appointment = new Appointment(
-                        Date.valueOf(LocalDate.of(2001, Month.NOVEMBER, 20)), Date.valueOf(LocalDate.of(2001, Month.NOVEMBER, 20)),
+                        Date.valueOf(LocalDate.of(2001, Month.NOVEMBER, 20)).toString(), Date.valueOf(LocalDate.of(2001, Month.NOVEMBER, 20)).toString(),
                         "Ioylianoy 10",
                         1234L,
                         patientRepository.findPatientByAmka(1234).get(),

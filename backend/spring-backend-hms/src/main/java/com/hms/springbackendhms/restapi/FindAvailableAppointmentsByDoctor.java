@@ -1,21 +1,17 @@
 package com.hms.springbackendhms.restapi;
 
 import com.hms.springbackendhms.config.JwtService;
-import com.hms.springbackendhms.db.VirtualDatabase;
+//import com.hms.springbackendhms.db.VirtualDatabase;
 import com.hms.springbackendhms.patient.PatientService;
-import com.hms.springbackendhms.request.ExecuteMedicalActionRequest;
 import com.hms.springbackendhms.request.FindAvailableAppointmentsByDoctorRequest;
 import com.hms.springbackendhms.response.FindAvailableAppointmentsByDoctorResponse;
-import com.hms.springbackendhms.response.StatusResponse;
 import com.hms.springbackendhms.util.Appointment;
-import com.hms.springbackendhms.util.Diagnosis;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -48,7 +44,7 @@ public class FindAvailableAppointmentsByDoctor {
 
             if (jwtService.isTokenValid(token, userDetails)) {
 
-                if (patientService.findByEmail(userEmail).isPresent()) {
+                if (patientService.findPatientByEmail(userEmail).isPresent()) {
 
                     // find a doctor that match
                     // with user input

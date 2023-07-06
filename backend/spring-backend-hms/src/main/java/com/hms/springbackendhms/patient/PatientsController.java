@@ -3,7 +3,7 @@ package com.hms.springbackendhms.patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping(path = "/patients")
@@ -19,7 +19,7 @@ public class PatientsController {
 
 
     @GetMapping
-    public List<Patient> getPatients() {
+    public ArrayList<Patient> getPatients() {
         return patientService.getPatients();
     }
 

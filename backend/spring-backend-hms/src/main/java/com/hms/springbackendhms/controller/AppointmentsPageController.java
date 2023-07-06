@@ -35,7 +35,7 @@ public class AppointmentsPageController {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
             if (jwtService.isTokenValid(token, userDetails)) {
 
-                if(patientService.findByEmail(userEmail).isPresent()){
+                if(patientService.findPatientByEmail(userEmail).isPresent()){
                     return "appointments";
                 }
 

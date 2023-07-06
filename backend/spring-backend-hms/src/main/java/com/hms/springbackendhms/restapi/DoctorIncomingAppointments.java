@@ -1,8 +1,11 @@
 package com.hms.springbackendhms.restapi;
 
+import com.hms.springbackendhms.appointment.Appointment;
+import com.hms.springbackendhms.appointment.AppointmentService;
 import com.hms.springbackendhms.config.JwtService;
 //import com.hms.springbackendhms.db.VirtualDatabase;
 import com.hms.springbackendhms.doctor.DoctorService;
+import com.hms.springbackendhms.patient.PatientService;
 import com.hms.springbackendhms.response.DoctorAppointmentsHistoryResponse;
 import com.hms.springbackendhms.response.DoctorIncomingAppointmentsResponse;
 import com.hms.springbackendhms.util.DoctorAppointment;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -25,6 +29,7 @@ public class DoctorIncomingAppointments {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
     private final DoctorService doctorService;
+    private final AppointmentService appointmentService;
 
     @GetMapping
     public DoctorIncomingAppointmentsResponse incomingAppointments(
@@ -50,24 +55,24 @@ public class DoctorIncomingAppointments {
                     // FROM DoctorAppointments
                     // where mail = userEmail
                     // AND date > now()
+                    ArrayList<Appointment> incoming = doctorService.getAppointments(userEmail, LocalDate.now().toString());
 
-
-                    ArrayList<DoctorAppointment> appointments = new ArrayList<>();
-                    appointments.add(DoctorAppointment.builder()
-                            .patientLastname("Lagomatis")
-                            .patientFirstname("Ilias")
-                            .date(new Date())
-                            .build());
-
-                    appointments.add(DoctorAppointment.builder()
-                            .patientLastname("Mallikopoulou")
-                            .patientFirstname("Anastasia")
-                            .date(new Date())
-                            .build());
+//                    ArrayList<DoctorAppointment> appointments = new ArrayList<>();
+//                    appointments.add(DoctorAppointment.builder()
+//                            .patientLastname("Lagomatis")
+//                            .patientFirstname("Ilias")
+//                            .date(new Date())
+//                            .build());
+//
+//                    appointments.add(DoctorAppointment.builder()
+//                            .patientLastname("Mallikopoulou")
+//                            .patientFirstname("Anastasia")
+//                            .date(new Date())
+//                            .build());
 
                     return DoctorIncomingAppointmentsResponse
                             .builder()
-                            .incomingAppointments(appointments)
+                            .incomingAppointments(incoming)
                             .build();
                 }
 

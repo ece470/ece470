@@ -1,22 +1,18 @@
 package com.hms.springbackendhms.restapi;
 
 import com.hms.springbackendhms.config.JwtService;
-import com.hms.springbackendhms.db.VirtualDatabase;
+//import com.hms.springbackendhms.db.VirtualDatabase;
+import com.hms.springbackendhms.doctor.DoctorService;
 import com.hms.springbackendhms.patient.Patient;
+import com.hms.springbackendhms.patient.PatientService;
 import com.hms.springbackendhms.request.FindPatientRequest;
-import com.hms.springbackendhms.response.PatientIncomingAppointmentsResponse;
 import com.hms.springbackendhms.response.PatientResponse;
-import com.hms.springbackendhms.util.Diagnosis;
-import com.hms.springbackendhms.util.MedicalAction;
-import com.hms.springbackendhms.util.PatientAppointment;
-import com.hms.springbackendhms.util.Prescription;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/restapi/find_patient_by_amka")
@@ -24,6 +20,8 @@ import java.util.Date;
 public class FindPatientByAmka {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final DoctorService doctorService;
+    private final PatientService patientService;
 
     @PostMapping
     public PatientResponse findPatient(
@@ -44,21 +42,21 @@ public class FindPatientByAmka {
 
             if (jwtService.isTokenValid(token, userDetails)) {
 
-                if (VirtualDatabase.hasDoctor(userEmail)) {
+                if (doctorService.findDoctorByEmail(userEmail).isPresent()) {
                     String userAmka = request.getAmka();
 
-                    Patient patient = VirtualDatabase.findPatientByAmka(userAmka);
-                    if(patient != null){
+                    Optional<Patient> patient = patientService.findPatientByAmka(Integer.parseInt(userAmka));
+                    if(patient.isPresent()){
                         return PatientResponse
                                 .builder()
-                                .afm(patient.getAfm().toString())
-                                .amka(patient.getAmka().toString())
-                                .city(patient.getCity())
-                                .tel(patient.getTel())
-                                .email(patient.getEmail())
-                                .address(patient.getAddress())
-                                .firstname(patient.getFirstname())
-                                .lastname(patient.getLastname())
+                                .afm(patient.get().getAfm().toString())
+                                .amka(patient.get().getAmka().toString())
+                                .city(patient.get().getCity())
+                                .tel(patient.get().getTel())
+                                .email(patient.get().getEmail())
+                                .address(patient.get().getAddress())
+                                .firstname(patient.get().getFirstname())
+                                .lastname(patient.get().getLastname())
                                 .build();
                     }
                 }

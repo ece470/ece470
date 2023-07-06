@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -21,8 +21,8 @@ public class DoctorService {
         this.appointmentRepository = appointmentRepository;
     }
 
-    public List<Doctor> getDoctors() {
-        return doctorRepository.findAll();
+    public ArrayList<Doctor> getDoctors() {
+        return new ArrayList<>( doctorRepository.findAll() );
     }
 
     public void addNewDoctor(Doctor doctor) {
@@ -34,8 +34,14 @@ public class DoctorService {
         return doctor.map(Doctor::getId).orElse(0);
     }
 
-    public List<Appointment> getAppointments(Integer id, Date date) {
-        return appointmentRepository.findAppointmentsByDoctor(id, date);
+    public ArrayList<Appointment> getAppointments(String email, String date) {
+        Optional<Doctor> doctor = doctorRepository.findDoctorByEmail(email);
+        return doctor.map(value -> appointmentRepository.findAppointmentIncomingDoctor(value.getId(), date)).orElse(null);
+    }
+
+    public ArrayList<Appointment> getAppointmentsHistory(String email, String date) {
+        Optional<Doctor> doctor = doctorRepository.findDoctorByEmail(email);
+        return doctor.map(value -> appointmentRepository.findAppointmentHistoryByDoctor(value.getId(), date)).orElse(null);
     }
 
     public Optional<Doctor> findDoctorByEmail(String email) {

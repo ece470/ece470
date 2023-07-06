@@ -6,18 +6,15 @@ import com.hms.springbackendhms.doctor.DoctorService;
 import com.hms.springbackendhms.patient.Patient;
 import com.hms.springbackendhms.patient.PatientService;
 import com.hms.springbackendhms.request.AddDiagnosisRequest;
-import com.hms.springbackendhms.request.AddPrescriptionRequest;
 import com.hms.springbackendhms.response.StatusResponse;
 
-import com.hms.springbackendhms.util.Diagnosis;
-import com.hms.springbackendhms.util.Medicine;
-import com.hms.springbackendhms.util.Prescription;
+import com.hms.springbackendhms.util.diagnosis.Diagnosis;
+import com.hms.springbackendhms.util.diagnosis.DiagnosisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.Optional;
 
 @RestController
@@ -28,6 +25,7 @@ public class AddDiagnosis {
     private final UserDetailsService userDetailsService;
     private final DoctorService doctorService;
     private final PatientService patientService;
+    private final DiagnosisService diagnosisService;
 
     @PostMapping
     public StatusResponse addDiagnosis(
@@ -61,8 +59,13 @@ public class AddDiagnosis {
                     Diagnosis diagnosis = Diagnosis
                             .builder()
                             .details(request.getDiagnosis())
+                            .patient(patient.get())
                             .build();
 
+                    diagnosisService.addDiagnosis(diagnosis);
+
+                    //Checking
+                    System.out.println(patient.toString());
                     // add the diagnosis on database
                     // for the user WHERE amka = userAmka
 

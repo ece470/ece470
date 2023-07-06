@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,8 +22,8 @@ public class DoctorController {
     }
 
     @GetMapping
-    List<Doctor> getDoctors() {
-        return doctorService.getDoctors();
+    ArrayList<Doctor> getDoctors() {
+        return new ArrayList<>( doctorService.getDoctors() );
     }
 
     @PostMapping
@@ -34,7 +35,7 @@ public class DoctorController {
     public void getAppoints(@PathVariable String email) {
         System.out.println(email);
         Integer doctorId = doctorService.getId(email);
-        List<Appointment> appointmentList = doctorService.getAppointments(doctorId, Date.valueOf(LocalDate.now()));
+        ArrayList<Appointment> appointmentList = doctorService.getAppointments(email, Date.valueOf(LocalDate.now()).toString());
         System.out.println(appointmentList.toString());
     }
 }

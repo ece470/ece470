@@ -1,16 +1,21 @@
 package com.hms.springbackendhms.restapi;
 
+import com.hms.springbackendhms.appointment.AppointmentService;
 import com.hms.springbackendhms.config.JwtService;
-import com.hms.springbackendhms.db.VirtualDatabase;
+//import com.hms.springbackendhms.db.VirtualDatabase;
+import com.hms.springbackendhms.patient.Patient;
+import com.hms.springbackendhms.patient.PatientService;
 import com.hms.springbackendhms.request.ExecuteMedicalActionRequest;
 import com.hms.springbackendhms.request.MakeAppointmentRequest;
 import com.hms.springbackendhms.response.StatusResponse;
-import com.hms.springbackendhms.util.Appointment;
+import com.hms.springbackendhms.appointment.Appointment;
 import com.hms.springbackendhms.util.MedicalAction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/restapi/make_appointment")
@@ -18,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 public class MakeAppointment {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final PatientService patientService;
+    private final AppointmentService appointmentService;
 
     @PostMapping
     public StatusResponse makeAppointment(
@@ -38,18 +45,20 @@ public class MakeAppointment {
 
             if (jwtService.isTokenValid(token, userDetails)) {
 
-                if (VirtualDatabase.hasPatient(userEmail)) {
+                Optional<Patient> patient = patientService.findPatientByEmail(userEmail);
+                if (patient.isPresent()) {
 
                     Appointment appointment =
                             Appointment
                                     .builder()
                                     .from(request.getFrom())
                                     .to(request.getTo())
+                                    .patient(patient.get())
                                     .build();
 
+                    boolean addedSuccesfully = appointmentService.saveAppoint(appointment);
                     // add the appointment on database
                     // for the user WHERE email = userEmail
-                    boolean addedSuccesfully = false;
                     if(addedSuccesfully) {
                         return StatusResponse
                                 .builder()

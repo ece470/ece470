@@ -1,17 +1,21 @@
 package com.hms.springbackendhms.restapi;
 
 import com.hms.springbackendhms.config.JwtService;
-import com.hms.springbackendhms.db.VirtualDatabase;
-import com.hms.springbackendhms.response.DoctorAppointmentsHistoryResponse;
+//import com.hms.springbackendhms.db.VirtualDatabase;
+import com.hms.springbackendhms.patient.Patient;
+import com.hms.springbackendhms.patient.PatientService;
 import com.hms.springbackendhms.response.PatientIncomingAppointmentsResponse;
 import com.hms.springbackendhms.util.*;
+import com.hms.springbackendhms.util.diagnosis.Diagnosis;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/restapi/patient_incoming_appointments")
@@ -19,6 +23,7 @@ import java.util.Date;
 public class PatientIncomingAppointments {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final PatientService patientService;
 
     @GetMapping
     public PatientIncomingAppointmentsResponse incomingAppointments(
@@ -36,7 +41,8 @@ public class PatientIncomingAppointments {
 
             if (jwtService.isTokenValid(token, userDetails)) {
 
-                if (VirtualDatabase.hasPatient(userEmail)) {
+                Optional<Patient> patient = patientService.findPatientByEmail(userEmail);
+                if (patient.isPresent()) {
                     // return the incoming
                     // appointments of patient
                     // ---------------------
@@ -44,7 +50,7 @@ public class PatientIncomingAppointments {
                     // FROM PatientAppointment
                     // where mail = userEmail
                     // AND date > now()
-
+                    patientService.appointmentsAfterDatePatient(patient.get().getId(), LocalDate.now().toString());
 
                     ArrayList<Diagnosis> diagnoses = new ArrayList<>();
 

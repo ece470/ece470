@@ -1,10 +1,12 @@
 package com.hms.springbackendhms.restapi;
 
 import com.hms.springbackendhms.config.JwtService;
-import com.hms.springbackendhms.db.VirtualDatabase;
+//import com.hms.springbackendhms.db.VirtualDatabase;
+import com.hms.springbackendhms.patient.Patient;
+import com.hms.springbackendhms.patient.PatientService;
 import com.hms.springbackendhms.response.PatientAppointmentsHistoryResponse;
-import com.hms.springbackendhms.response.PatientIncomingAppointmentsResponse;
 import com.hms.springbackendhms.util.*;
+import com.hms.springbackendhms.util.diagnosis.Diagnosis;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,8 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/restapi/patient_appointments_history")
@@ -22,6 +26,7 @@ import java.util.Date;
 public class PatientAppointmentsHistory {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final PatientService patientService;
 
     @GetMapping
     public PatientAppointmentsHistoryResponse history(
@@ -39,7 +44,8 @@ public class PatientAppointmentsHistory {
 
             if (jwtService.isTokenValid(token, userDetails)) {
 
-                if (VirtualDatabase.hasPatient(userEmail)) {
+                Optional<Patient> patient = patientService.findPatientByEmail(userEmail);
+                if (patient.isPresent()) {
                     // return the history
                     // appointments of patient
                     // ---------------------
@@ -47,7 +53,7 @@ public class PatientAppointmentsHistory {
                     // FROM PatientAppointment
                     // where mail = userEmail
                     // AND date < now()
-
+                    patientService.appointmentsBeforeDatePatient(patient.get().getId(), LocalDate.now().toString());
 
                     ArrayList<Diagnosis> diagnoses = new ArrayList<>();
                     diagnoses.add(

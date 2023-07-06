@@ -1,5 +1,6 @@
 package com.hms.springbackendhms.util;
 
+import com.hms.springbackendhms.util.diagnosis.Diagnosis;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

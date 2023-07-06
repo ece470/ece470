@@ -46,7 +46,7 @@ public class MainPageController {
                 if(doctorService.findDoctorByEmail(userEmail).isPresent()){
                     return "homePageDoct";
                 }
-                if(patientService.findByEmail(userEmail).isPresent()){
+                if(patientService.findPatientByEmail(userEmail).isPresent()){
                     return "homePagePatients";
                 }
                 return "index1";

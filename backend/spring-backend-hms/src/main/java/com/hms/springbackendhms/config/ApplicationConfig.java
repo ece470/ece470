@@ -47,7 +47,7 @@ public class ApplicationConfig {
           if(doctor.isPresent()){
               return doctor.get();
           }
-          Optional<Patient> patient = patientService.findByEmail(username);
+          Optional<Patient> patient = patientService.findPatientByEmail(username);
           if(patient.isPresent()){
               return patient.get();
           }
