@@ -6,7 +6,7 @@ import com.hms.springbackendhms.util.diagnosis.DiagnosisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,8 +23,8 @@ public class PatientService {
         this.diagnosisRepository = diagnosisRepository;
     }
 
-    public ArrayList<Patient> getPatients() {
-        return new ArrayList<>(patientRepository.findAll());
+    public List<Patient> getPatients() {
+        return patientRepository.findAll();
     }
 
     public void addNewPatient(Patient patient) {
@@ -44,12 +44,12 @@ public class PatientService {
         return patientRepository.findPatientByAmka(amka);
     }
 
-    public ArrayList<Appointment> appointmentsAfterDatePatient(int id, String date) {
-        return appointmentRepository.findAfterDateforPatient(id,date);
+    public List<Appointment> appointmentsAfterDatePatient(Patient patient, String date) {
+        return appointmentRepository.findAfterDateforPatient(patient,date);
     }
 
-    public ArrayList<Appointment> appointmentsBeforeDatePatient(int id, String date) {
-        return appointmentRepository.findBeforeDateforPatient(id,date);
+    public List<Appointment> appointmentsBeforeDatePatient(Patient patient, String date) {
+        return appointmentRepository.findBeforeDateforPatient(patient,date);
     }
 
 }

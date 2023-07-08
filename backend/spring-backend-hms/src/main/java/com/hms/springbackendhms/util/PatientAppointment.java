@@ -1,12 +1,14 @@
 package com.hms.springbackendhms.util;
 
+import com.hms.springbackendhms.util.MedicalAction.MedicalAction;
+import com.hms.springbackendhms.util.Prescription.Prescription;
 import com.hms.springbackendhms.util.diagnosis.Diagnosis;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 @Data
@@ -18,7 +20,7 @@ public class PatientAppointment {
     String doctorLastname;
     String doctorSpecialisation;
     Date date;
-    ArrayList<Prescription> prescriptions;
-    ArrayList<Diagnosis> diagnoses;
-    ArrayList<MedicalAction> medicalActions;
+    List<Prescription> prescriptions;
+    List<Diagnosis> diagnoses;
+    List<MedicalAction> medicalActions;
 }

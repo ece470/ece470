@@ -6,6 +6,9 @@ import com.hms.springbackendhms.patient.Patient;
 import com.hms.springbackendhms.patient.PatientService;
 import com.hms.springbackendhms.response.PatientAppointmentsHistoryResponse;
 import com.hms.springbackendhms.util.*;
+import com.hms.springbackendhms.util.MedicalAction.MedicalAction;
+import com.hms.springbackendhms.util.Medicine.Medicine;
+import com.hms.springbackendhms.util.Prescription.Prescription;
 import com.hms.springbackendhms.util.diagnosis.Diagnosis;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 import java.util.Optional;
 
@@ -53,9 +57,9 @@ public class PatientAppointmentsHistory {
                     // FROM PatientAppointment
                     // where mail = userEmail
                     // AND date < now()
-                    patientService.appointmentsBeforeDatePatient(patient.get().getId(), LocalDate.now().toString());
+                    patientService.appointmentsBeforeDatePatient(patient.get(), LocalDate.now().toString());
 
-                    ArrayList<Diagnosis> diagnoses = new ArrayList<>();
+                    List<Diagnosis> diagnoses = new ArrayList<>();
                     diagnoses.add(
                             Diagnosis
                                     .builder()
@@ -63,17 +67,17 @@ public class PatientAppointmentsHistory {
                                     .build()
                     );
 
-                    ArrayList<Prescription> prescriptions = new ArrayList<>();
+                    List<Prescription> prescriptions = new ArrayList<>();
                     prescriptions.add(
                             Prescription
                                     .builder()
-                                    .medicine(Medicine.builder().id("h783hdn2").name("MedName").build())
+                                    .medicine(List.of(Medicine.builder().id("h783hdn2").name("MedName").build()))
                                     .description("lorem ipsum")
-                                    .useUntil(new Date())
+                                    .useUntil(new Date().toString())
                                     .build()
                     );
 
-                    ArrayList<MedicalAction> medicalActions = new ArrayList<>();
+                    List<MedicalAction> medicalActions = new ArrayList<>();
                     medicalActions.add(
                             MedicalAction
                                     .builder()
@@ -82,7 +86,7 @@ public class PatientAppointmentsHistory {
                                     .build()
                     );
 
-                    ArrayList<PatientAppointment> history = new ArrayList<>();
+                    List<PatientAppointment> history = new ArrayList<>();
                     history.add(
                             PatientAppointment
                                     .builder()

@@ -12,7 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Date;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Collection;
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class Doctor implements UserDetails {
     private Role role;
 
     @OneToMany(mappedBy = "doctor")
-    ArrayList<Appointment> appointmentList;
+    List<Appointment> appointmentList;
 
     public Doctor(String address_office, int afm_office, String city_office, Date dob_office, String email, String firstname, String lastname, String password, String tel_office, Role role) {
         this.address_office = address_office;
@@ -96,7 +96,7 @@ public class Doctor implements UserDetails {
         return role;
     }
 
-    public ArrayList<Appointment> getAppointmentList() {
+    public List<Appointment> getAppointmentList() {
         return appointmentList;
     }
 

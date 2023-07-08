@@ -2,10 +2,15 @@ package com.hms.springbackendhms.appointment;
 
 import com.hms.springbackendhms.doctor.Doctor;
 import com.hms.springbackendhms.patient.Patient;
+import com.hms.springbackendhms.util.MedicalAction.MedicalAction;
+import com.hms.springbackendhms.util.Prescription.Prescription;
+import com.hms.springbackendhms.util.diagnosis.Diagnosis;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 
 @Entity
@@ -38,6 +43,17 @@ public class Appointment {
             inverseJoinColumns = @JoinColumn(name = "doc_id"))
     private Doctor doctor;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "appointment")
+    private List<Diagnosis> diagnosisList;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "appointment")
+    private List<MedicalAction> medicalActionList;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "appointment")
+    private List<Prescription> prescriptionList;
+
+
+
     public Appointment(String start_time, String end_time, String title, Long hex_colored, Patient patient, Doctor doctor) {
         this.start_time = start_time;
         this.end_time = end_time;
@@ -68,5 +84,33 @@ public class Appointment {
 
     public String getTitle() {
         return title;
+    }
+
+    public List<Diagnosis> getDiagnosisList() {
+        return diagnosisList;
+    }
+
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public String getEnd_time() {
+        return end_time;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public List<MedicalAction> getMedicalActionList() {
+        return medicalActionList;
+    }
+
+    public List<Prescription> getPrescriptionList() {
+        return prescriptionList;
     }
 }

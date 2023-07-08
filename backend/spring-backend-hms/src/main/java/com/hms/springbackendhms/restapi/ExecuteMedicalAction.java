@@ -7,7 +7,8 @@ import com.hms.springbackendhms.patient.Patient;
 import com.hms.springbackendhms.patient.PatientService;
 import com.hms.springbackendhms.request.ExecuteMedicalActionRequest;
 import com.hms.springbackendhms.response.StatusResponse;
-import com.hms.springbackendhms.util.MedicalAction;
+import com.hms.springbackendhms.util.MedicalAction.MedicalAction;
+import com.hms.springbackendhms.util.MedicalAction.MedicalActionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,6 +25,7 @@ public class ExecuteMedicalAction {
     private final UserDetailsService userDetailsService;
     private final DoctorService doctorService;
     private final PatientService patientService;
+    private final MedicalActionService medicalActionService;
 
     @PostMapping
     public StatusResponse executeMedicalAction(
@@ -58,8 +60,10 @@ public class ExecuteMedicalAction {
                             .builder()
                             .title(request.getTitle())
                             .details(request.getDetails())
+                            .patient(patient.get())
                             .build();
 
+                    medicalActionService.addMedicalAction(medicalAction);
                     // add the medicalAction on database
                     // for the user WHERE amka = userAmka
 

@@ -3,6 +3,8 @@ package com.hms.springbackendhms.patient;
 
 import com.hms.springbackendhms.appointment.Appointment;
 import com.hms.springbackendhms.user.Role;
+import com.hms.springbackendhms.util.MedicalAction.MedicalAction;
+import com.hms.springbackendhms.util.Prescription.Prescription;
 import com.hms.springbackendhms.util.diagnosis.Diagnosis;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,7 +19,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -44,10 +46,16 @@ public class Patient implements UserDetails {
 //    private List<String> diseases;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "patient")
-    ArrayList<Appointment> appointmentList;
+    List<Appointment> appointmentList;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "patient")
-    ArrayList<Diagnosis> diagnosisArrayList;
+    List<Diagnosis> diagnosisList;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "patient")
+    List<Prescription> prescriptionList;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "patient")
+    List<MedicalAction> medicalActionList;
 
     @Transient
     private int age;

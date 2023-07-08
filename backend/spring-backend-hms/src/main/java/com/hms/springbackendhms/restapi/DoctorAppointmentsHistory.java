@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/restapi/doctor_appointments_history")
@@ -39,7 +39,7 @@ public class DoctorAppointmentsHistory {
 
                 if (doctorService.findDoctorByEmail(userEmail).isPresent()) {
 
-                    ArrayList<Appointment> history = doctorService.getAppointmentsHistory(userEmail, LocalDate.now().toString());
+                    List<Appointment> history = doctorService.getAppointmentsHistory(userEmail, LocalDate.now().toString());
                     // return the history of doctor
                     // ---------------------
                     // SELECT *
@@ -47,7 +47,7 @@ public class DoctorAppointmentsHistory {
                     // where mail = userEmail
                     // AND date < now()
 
-//                    ArrayList<DoctorAppointment> appointments = new ArrayList<>();
+//                    List<DoctorAppointment> appointments = new List<>();
 //                    appointments.add(DoctorAppointment.builder()
 //                            .patientLastname("Lagomatis")
 //                            .patientFirstname("Ilias")

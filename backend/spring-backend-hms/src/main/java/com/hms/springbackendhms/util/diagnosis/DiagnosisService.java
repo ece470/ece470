@@ -3,7 +3,7 @@ package com.hms.springbackendhms.util.diagnosis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DiagnosisService {
@@ -15,8 +15,8 @@ public class DiagnosisService {
         this.diagnosisRepository = diagnosisRepository;
     }
 
-    public ArrayList<Diagnosis> getDiagnosis() {
-        return new ArrayList<>(diagnosisRepository.findAll());
+    public List<Diagnosis> getDiagnosis() {
+        return diagnosisRepository.findAll();
     }
 
     public void addDiagnosis(Diagnosis diagnosis) {

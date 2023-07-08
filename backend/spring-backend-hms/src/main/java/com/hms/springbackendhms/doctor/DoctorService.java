@@ -5,7 +5,8 @@ import com.hms.springbackendhms.appointment.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,8 +21,8 @@ public class DoctorService {
         this.appointmentRepository = appointmentRepository;
     }
 
-    public ArrayList<Doctor> getDoctors() {
-        return new ArrayList<>( doctorRepository.findAll() );
+    public List<Doctor> getDoctors() {
+        return  doctorRepository.findAll();
     }
 
     public void addNewDoctor(Doctor doctor) {
@@ -33,17 +34,19 @@ public class DoctorService {
         return doctor.map(Doctor::getId).orElse(0);
     }
 
-    public ArrayList<Appointment> getAppointments(String email, String date) {
+    public List<Appointment> getAppointments(String email, String date) {
         Optional<Doctor> doctor = doctorRepository.findDoctorByEmail(email);
-        return doctor.map(value -> appointmentRepository.findAppointmentIncomingDoctor(value.getId(), date)).orElse(null);
+        return doctor.map(value -> appointmentRepository.findAppointmentIncomingDoctor(doctor.get(), date)).orElse(null);
     }
 
-    public ArrayList<Appointment> getAppointmentsHistory(String email, String date) {
+    public List<Appointment> getAppointmentsHistory(String email, String date) {
         Optional<Doctor> doctor = doctorRepository.findDoctorByEmail(email);
-        return doctor.map(value -> appointmentRepository.findAppointmentHistoryByDoctor(value.getId(), date)).orElse(null);
+        return doctor.map(value -> appointmentRepository.findAppointmentHistoryByDoctor(value, LocalDate.now().toString())).orElse(null);
     }
 
     public Optional<Doctor> findDoctorByEmail(String email) {
+
+        System.out.println(doctorRepository.findDoctorByEmail(email).isPresent());
         return doctorRepository.findDoctorByEmail(email);
     }
 

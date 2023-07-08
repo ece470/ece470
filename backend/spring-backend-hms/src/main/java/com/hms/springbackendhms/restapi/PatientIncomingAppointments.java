@@ -6,6 +6,8 @@ import com.hms.springbackendhms.patient.Patient;
 import com.hms.springbackendhms.patient.PatientService;
 import com.hms.springbackendhms.response.PatientIncomingAppointmentsResponse;
 import com.hms.springbackendhms.util.*;
+import com.hms.springbackendhms.util.MedicalAction.MedicalAction;
+import com.hms.springbackendhms.util.Prescription.Prescription;
 import com.hms.springbackendhms.util.diagnosis.Diagnosis;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 import java.util.Optional;
 
@@ -50,16 +53,16 @@ public class PatientIncomingAppointments {
                     // FROM PatientAppointment
                     // where mail = userEmail
                     // AND date > now()
-                    patientService.appointmentsAfterDatePatient(patient.get().getId(), LocalDate.now().toString());
+                    patientService.appointmentsAfterDatePatient(patient.get(), LocalDate.now().toString());
 
-                    ArrayList<Diagnosis> diagnoses = new ArrayList<>();
+                    List<Diagnosis> diagnoses = new ArrayList<>();
 
-                    ArrayList<Prescription> prescriptions = new ArrayList<>();
+                    List<Prescription> prescriptions = new ArrayList<>();
 
-                    ArrayList<MedicalAction> medicalActions = new ArrayList<>();
+                    List<MedicalAction> medicalActions = new ArrayList<>();
 
 
-                    ArrayList<PatientAppointment> appointments = new ArrayList<>();
+                    List<PatientAppointment> appointments = new ArrayList<>();
                     appointments.add(
                             PatientAppointment
                                     .builder()

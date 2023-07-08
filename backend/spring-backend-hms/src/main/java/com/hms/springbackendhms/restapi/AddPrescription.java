@@ -6,16 +6,17 @@ import com.hms.springbackendhms.doctor.DoctorService;
 import com.hms.springbackendhms.patient.Patient;
 import com.hms.springbackendhms.patient.PatientService;
 import com.hms.springbackendhms.request.AddPrescriptionRequest;
-import com.hms.springbackendhms.response.PatientResponse;
 import com.hms.springbackendhms.response.StatusResponse;
-import com.hms.springbackendhms.util.Medicine;
-import com.hms.springbackendhms.util.Prescription;
+import com.hms.springbackendhms.util.Medicine.Medicine;
+import com.hms.springbackendhms.util.Prescription.Prescription;
+import com.hms.springbackendhms.util.Prescription.PrescriptionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -26,6 +27,7 @@ public class AddPrescription {
     private final UserDetailsService userDetailsService;
     private final PatientService patientService;
     private final DoctorService doctorService;
+    private final PrescriptionService prescriptionService;
 
     @PostMapping
     public StatusResponse addPrescription(
@@ -58,15 +60,17 @@ public class AddPrescription {
                     }
                     Prescription prescription = Prescription
                             .builder()
-                            .useUntil(new Date(/*request.getUseUntil()*/))
+                            .useUntil(new Date(/*request.getUseUntil()*/).toString())
                             .description(request.getDescription())
-                            .medicine(Medicine
+                            .medicine(List.of(Medicine
                                     .builder()
                                     .name(request.getMedicine()).
                                     build()
-                            )
+                            ))
+                            .patient(patient.get())
                             .build();
 
+                    prescriptionService.updatePrescription(prescription);
                     // add the prescription on database
                     // for the user WHERE amka = userAmka
 

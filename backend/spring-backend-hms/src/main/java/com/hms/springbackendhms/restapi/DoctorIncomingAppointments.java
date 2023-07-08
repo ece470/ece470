@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/restapi/doctor_incoming_appointments")
@@ -49,9 +49,9 @@ public class DoctorIncomingAppointments {
                     // FROM DoctorAppointments
                     // where mail = userEmail
                     // AND date > now()
-                    ArrayList<Appointment> incoming = doctorService.getAppointments(userEmail, LocalDate.now().toString());
+                    List<Appointment> incoming = doctorService.getAppointments(userEmail, LocalDate.now().toString());
 
-//                    ArrayList<DoctorAppointment> appointments = new ArrayList<>();
+//                    List<DoctorAppointment> appointments = new List<>();
 //                    appointments.add(DoctorAppointment.builder()
 //                            .patientLastname("Lagomatis")
 //                            .patientFirstname("Ilias")

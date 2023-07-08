@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.List;
 
 @RestController
@@ -61,16 +61,13 @@ public class FindAvailableAppointmentsByDoctor {
                             .end_time("19:30")
                             .build();
 
-                    ArrayList<Appointment> appointments =
-                            new ArrayList<>(List.of(appointment1, appointment2));
+                    List<Appointment> appointments =
+                            (List.of(appointment1, appointment2));
 
-                    FindAvailableAppointmentsByDoctorResponse response =
-                            FindAvailableAppointmentsByDoctorResponse
-                                    .builder()
-                                    .availableAppointments(appointments)
-                                    .build();
-
-                    return response;
+                    return FindAvailableAppointmentsByDoctorResponse
+                            .builder()
+                            .availableAppointments(appointments)
+                            .build();
                 }
             }
         }

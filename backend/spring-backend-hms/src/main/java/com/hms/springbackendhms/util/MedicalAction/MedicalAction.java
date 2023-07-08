@@ -1,4 +1,4 @@
-package com.hms.springbackendhms.util.diagnosis;
+package com.hms.springbackendhms.util.MedicalAction;
 
 import com.hms.springbackendhms.appointment.Appointment;
 import com.hms.springbackendhms.patient.Patient;
@@ -10,37 +10,44 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Embeddable
 @Table
 @Entity
-public class Diagnosis {
+@AllArgsConstructor
+@NoArgsConstructor
+public class MedicalAction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    String title;
     String details;
 
     @ManyToOne
-    @JoinTable(name = "patient_diagnosis",
-            joinColumns = @JoinColumn(name = "diagnosis_id"),
+    @JoinTable(name = "patient_MedicalAction",
+            joinColumns = @JoinColumn(name = "MedicalAction_id"),
             inverseJoinColumns = @JoinColumn(name = "patient_id"))
     private Patient patient;
 
     @ManyToOne
-    @JoinTable(name = "diagnosis_appoint",
-            joinColumns = @JoinColumn(name = "diagnosis_id"),
+    @JoinTable(name = "MedicaAction_appoint",
+            joinColumns = @JoinColumn(name = "MedicalAction_id"),
             inverseJoinColumns = @JoinColumn(name = "appoint_id"))
     private Appointment appointment;
 
-
-    public Diagnosis(String details, Patient patient) {
-        this.details = details;
-        this.patient = patient;
+    public String getTitle() {
+        return title;
     }
+
     public String getDetails() {
         return details;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public Appointment getAppointment() {
+        return appointment;
     }
 }

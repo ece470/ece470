@@ -3,7 +3,7 @@ package com.hms.springbackendhms.appointment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class AppointmentService {
@@ -15,8 +15,8 @@ public class AppointmentService {
         this.appointmentRepository = appointmentRepository;
     }
 
-    public ArrayList<Appointment> getAppointments() {
-        return new ArrayList<Appointment>(appointmentRepository.findAll());
+    public List<Appointment> getAppointments() {
+        return appointmentRepository.findAll();
     }
     public boolean saveAppoint(Appointment appointment) {
         Appointment check = appointmentRepository.save(appointment);

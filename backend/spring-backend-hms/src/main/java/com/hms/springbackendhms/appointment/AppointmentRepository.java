@@ -1,25 +1,27 @@
 package com.hms.springbackendhms.appointment;
 
+import com.hms.springbackendhms.doctor.Doctor;
+import com.hms.springbackendhms.patient.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment,Integer> {
 
     @Query("Select s from Appointment s where s.patient = ?1 and s.start_time < ?2")
-    ArrayList<Appointment> findBeforeDateforPatient(int id, String date);
+    List<Appointment> findBeforeDateforPatient(Patient id, String date);
 
     @Query("Select s from Appointment s where s.patient = ?1 and s.start_time >= ?2")
-    ArrayList<Appointment> findAfterDateforPatient(int id, String date);
+    List<Appointment> findAfterDateforPatient(Patient id, String date);
 
     @Query("Select s from Appointment s where s.patient = ?1")
-    ArrayList<Appointment> findAppointmentByPatient(int id);
+    List<Appointment> findAppointmentByPatient(Patient id);
 
     @Query("Select s from Appointment s where s.doctor = ?1 and s.start_time < ?2")
-    ArrayList<Appointment> findAppointmentHistoryByDoctor(int id, String date);
+    List<Appointment> findAppointmentHistoryByDoctor(Doctor id, String date);
     @Query("Select s from Appointment s where s.doctor = ?1 and s.start_time >= ?2")
-    ArrayList<Appointment> findAppointmentIncomingDoctor(int id, String date);
+    List<Appointment> findAppointmentIncomingDoctor(Doctor id, String date);
 }

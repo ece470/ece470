@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -14,5 +14,5 @@ import java.util.ArrayList;
 @NoArgsConstructor
 public class DoctorIncomingAppointmentsResponse {
 
-    ArrayList<Appointment> incomingAppointments;
+    List<Appointment> incomingAppointments;
 }
