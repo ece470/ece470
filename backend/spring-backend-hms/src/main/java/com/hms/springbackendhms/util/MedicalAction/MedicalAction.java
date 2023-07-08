@@ -24,14 +24,14 @@ public class MedicalAction {
     String details;
 
     @ManyToOne
-    @JoinTable(name = "patient_MedicalAction",
-            joinColumns = @JoinColumn(name = "MedicalAction_id"),
+    @JoinTable(name = "patient_medical_action",
+            joinColumns = @JoinColumn(name = "Medical_Action_id"),
             inverseJoinColumns = @JoinColumn(name = "patient_id"))
     private Patient patient;
 
     @ManyToOne
-    @JoinTable(name = "MedicaAction_appoint",
-            joinColumns = @JoinColumn(name = "MedicalAction_id"),
+    @JoinTable(name = "Medica_Action_appoint",
+            joinColumns = @JoinColumn(name = "Medical_Action_id"),
             inverseJoinColumns = @JoinColumn(name = "appoint_id"))
     private Appointment appointment;
 

@@ -1,6 +1,5 @@
 package com.hms.springbackendhms.util.Medicine;
 
-import com.hms.springbackendhms.patient.Patient;
 import com.hms.springbackendhms.util.Prescription.Prescription;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

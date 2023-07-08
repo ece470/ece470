@@ -14,13 +14,11 @@ public class PatientService {
 
     private final PatientRepository patientRepository;
     private final AppointmentRepository appointmentRepository;
-    private final DiagnosisRepository diagnosisRepository;
 
     @Autowired
     public PatientService(PatientRepository patientRepository, AppointmentRepository appointmentRepository,DiagnosisRepository diagnosisRepository) {
         this.patientRepository = patientRepository;
         this.appointmentRepository = appointmentRepository;
-        this.diagnosisRepository = diagnosisRepository;
     }
 
     public List<Patient> getPatients() {
