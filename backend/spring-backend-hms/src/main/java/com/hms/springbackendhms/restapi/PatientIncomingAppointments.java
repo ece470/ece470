@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+//TODO:import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class PatientIncomingAppointments {
     @GetMapping
     public PatientIncomingAppointmentsResponse incomingAppointments(
             @CookieValue(name="token", defaultValue = "") String token
-    ) throws ParseException {
+    ) { //TODO:throws ParseException {
 
         if(token.isBlank()){
             return null;
@@ -64,27 +64,20 @@ public class PatientIncomingAppointments {
                                 .build();
                     }
 
-                    List<Diagnosis> diagnoses = patient.get().getDiagnosisList();
-
-                    List<Prescription> prescriptions = patient.get().getPrescriptionList();
-
-                    List<MedicalAction> medicalActions = patient.get().getMedicalActionList();
-
-
                     List<PatientAppointment> appointments = new ArrayList<>();
 
-                    for(int i=0;i<appointmentList.size();i++) {
+                    for (Appointment appointment : appointmentList) {
                         //TODO:Date s1 =  new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse(appointmentList.get(i).getstart_time());
                         appointments.add(
                                 PatientAppointment
                                         .builder()
-                                        .doctorFirstname(appointmentList.get(i).getDoctor().getFirstname())
-                                        .doctorLastname(appointmentList.get(i).getDoctor().getLastname())
+                                        .doctorFirstname(appointment.getDoctor().getFirstname())
+                                        .doctorLastname(appointment.getDoctor().getLastname())
                                         .date(new Date())
-                                        .doctorSpecialisation(appointmentList.get(i).getDoctor().getSpecialization())
-                                        .diagnoses(appointmentList.get(i).getDiagnosisList())
-                                        .medicalActions(appointmentList.get(i).getMedicalActionList())
-                                        .prescriptions(appointmentList.get(i).getPrescriptionList())
+                                        .doctorSpecialisation(appointment.getDoctor().getSpecialization())
+                                        .diagnoses(appointment.getDiagnosisList())
+                                        .medicalActions(appointment.getMedicalActionList())
+                                        .prescriptions(appointment.getPrescriptionList())
                                         .build()
                         );
                     }

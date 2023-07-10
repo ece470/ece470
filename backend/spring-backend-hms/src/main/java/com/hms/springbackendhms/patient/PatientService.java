@@ -2,7 +2,6 @@ package com.hms.springbackendhms.patient;
 
 import com.hms.springbackendhms.appointment.Appointment;
 import com.hms.springbackendhms.appointment.AppointmentRepository;
-import com.hms.springbackendhms.util.diagnosis.Diagnosis;
 import com.hms.springbackendhms.util.diagnosis.DiagnosisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ public class PatientService {
     private final AppointmentRepository appointmentRepository;
 
     @Autowired
-    public PatientService(PatientRepository patientRepository, AppointmentRepository appointmentRepository,DiagnosisRepository diagnosisRepository) {
+    public PatientService(PatientRepository patientRepository, AppointmentRepository appointmentRepository) {
         this.patientRepository = patientRepository;
         this.appointmentRepository = appointmentRepository;
     }

@@ -1,6 +1,5 @@
 package com.hms.springbackendhms.util.Prescription;
 
-import com.hms.springbackendhms.util.diagnosis.Diagnosis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

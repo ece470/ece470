@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,7 +29,7 @@ public class DoctorAppointmentsHistory {
     @GetMapping
     public DoctorAppointmentsHistoryResponse history(
             @CookieValue(name = "token", defaultValue = "") String token
-    ) throws ParseException {
+    ) {
         if(token.isBlank()){
             return null;
         }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+//TODO:import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,7 +33,7 @@ public class DoctorIncomingAppointments {
     @GetMapping
     public DoctorIncomingAppointmentsResponse incomingAppointments(
             @CookieValue(name = "token", defaultValue = "") String token
-    ) throws ParseException {
+    ) {//TODO:throws ParseException {
         if(token.isBlank()){
             return null;
         }
@@ -67,12 +67,12 @@ public class DoctorIncomingAppointments {
 //                            .patientFirstname("Anastasia")
 //                            .date(new Date())
 //                            .build());
-                    for (int i=0;i<incoming.size();i++) {
+                    for (Appointment appointment : incoming) {
 
                         //TODO:Date s1 =  new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse(incoming.get(i).getstart_time());
                         appointments.add(DoctorAppointment.builder()
-                                .patientLastname(incoming.get(i).getPatient().getLastname())
-                                .patientFirstname(incoming.get(i).getPatient().getFirstname())
+                                .patientLastname(appointment.getPatient().getLastname())
+                                .patientFirstname(appointment.getPatient().getFirstname())
                                 .date(new Date())
                                 .build());
                     }
