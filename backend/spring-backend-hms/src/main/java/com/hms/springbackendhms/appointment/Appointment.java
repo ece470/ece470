@@ -66,21 +66,21 @@ public class Appointment {
     public int getId() {
         return id;
     }
-    public Long getHex_colored() {
-        return Hex_colored;
-    }
-
-    public void setHex_colored(Long hex_colored) {
-        Hex_colored = hex_colored;
-    }
-
-    public String getstart_time() {
-        return start_time;
-    }
-
-    public String getend_time() {
-        return end_time;
-    }
+//    public Long getHex_colored() {
+//        return Hex_colored;
+//    }
+//
+//    public void setHex_colored(Long hex_colored) {
+//        Hex_colored = hex_colored;
+//    }
+//TODO:
+//    public String getstart_time() {
+//        return start_time;
+//    }
+//
+//    public String getend_time() {
+//        return end_time;
+//    }
 
     public String getTitle() {
         return title;
@@ -88,15 +88,6 @@ public class Appointment {
 
     public List<Diagnosis> getDiagnosisList() {
         return diagnosisList;
-    }
-
-
-    public String getStart_time() {
-        return start_time;
-    }
-
-    public String getEnd_time() {
-        return end_time;
     }
 
     public Patient getPatient() {

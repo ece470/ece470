@@ -2,7 +2,6 @@ package com.hms.springbackendhms.patient;
 
 import com.hms.springbackendhms.appointment.Appointment;
 import com.hms.springbackendhms.appointment.AppointmentRepository;
-import com.hms.springbackendhms.util.diagnosis.DiagnosisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

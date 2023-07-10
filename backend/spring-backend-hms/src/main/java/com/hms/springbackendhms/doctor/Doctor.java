@@ -60,21 +60,21 @@ public class Doctor implements UserDetails {
         return id;
     }
 
-    public String getAddress_office() {
-        return address_office;
-    }
-
-    public int getAfm_office() {
-        return afm_office;
-    }
-
-    public String getCity_office() {
-        return city_office;
-    }
-
-    public Date getDob_office() {
-        return dob_office;
-    }
+//    public String getAddress_office() {
+//        return address_office;
+//    }
+//
+//    public int getAfm_office() {
+//        return afm_office;
+//    }
+//
+//    public String getCity_office() {
+//        return city_office;
+//    }
+//
+//    public Date getDob_office() {
+//        return dob_office;
+//    }
 
     public String getEmail() {
         return email;
@@ -88,17 +88,17 @@ public class Doctor implements UserDetails {
         return lastname;
     }
 
-    public String getTel_office() {
-        return tel_office;
-    }
+//    public String getTel_office() {
+//        return tel_office;
+//    }
 
     public Role getRole() {
         return role;
     }
 
-    public List<Appointment> getAppointmentList() {
-        return appointmentList;
-    }
+//    public List<Appointment> getAppointmentList() {
+//        return appointmentList;
+//    }
 
     public String getSpecialization() {
         return Specialization;

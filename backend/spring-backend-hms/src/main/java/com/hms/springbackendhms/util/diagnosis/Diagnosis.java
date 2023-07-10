@@ -36,10 +36,10 @@ public class Diagnosis {
     private Appointment appointment;
 
 
-    public Diagnosis(String details, Patient patient) {
-        this.details = details;
-        this.patient = patient;
-    }
+//    public Diagnosis(String details, Patient patient) {
+//        this.details = details;
+//        this.patient = patient;
+//    }
 
     public String getDetails() {
         return details;

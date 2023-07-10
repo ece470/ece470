@@ -2,25 +2,22 @@ package com.hms.springbackendhms.restapi;
 
 import com.hms.springbackendhms.appointment.Appointment;
 import com.hms.springbackendhms.config.JwtService;
-//import com.hms.springbackendhms.db.VirtualDatabase;
 import com.hms.springbackendhms.patient.Patient;
 import com.hms.springbackendhms.patient.PatientService;
 import com.hms.springbackendhms.response.PatientIncomingAppointmentsResponse;
-import com.hms.springbackendhms.util.*;
-import com.hms.springbackendhms.util.MedicalAction.MedicalAction;
-import com.hms.springbackendhms.util.Prescription.Prescription;
-import com.hms.springbackendhms.util.diagnosis.Diagnosis;
+import com.hms.springbackendhms.util.PatientAppointment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.text.ParseException;
-//TODO:import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @RestController

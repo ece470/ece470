@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.ParseException;
+//TODO:import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -70,14 +70,14 @@ public class DoctorAppointmentsHistory {
 //                            .date(new Date())
 //                            .build());
 //
-                    for (int i=0;i<history.size();i++) {
+                    for (Appointment appointment : history) {
 
                         //TODO:Date s1 =  new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse(history.get(i).getstart_time());
                         appointments.add(DoctorAppointment.builder()
-                            .patientLastname(history.get(i).getPatient().getLastname())
-                            .patientFirstname(history.get(i).getPatient().getFirstname())
-                            .date(new Date())
-                            .build());
+                                .patientLastname(appointment.getPatient().getLastname())
+                                .patientFirstname(appointment.getPatient().getFirstname())
+                                .date(new Date())
+                                .build());
                     }
                     return DoctorAppointmentsHistoryResponse.builder()
                             .history(appointments)
