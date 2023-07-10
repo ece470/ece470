@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.sql.Date;
 import java.util.List;
 import java.util.Collection;
-import java.util.List;
 
 @Data
 @Builder
@@ -39,6 +38,7 @@ public class Doctor implements UserDetails {
     private String password;
     private String tel_office;
     private Role role;
+    private String Specialization;
 
     @OneToMany(mappedBy = "doctor")
     List<Appointment> appointmentList;
@@ -98,6 +98,10 @@ public class Doctor implements UserDetails {
 
     public List<Appointment> getAppointmentList() {
         return appointmentList;
+    }
+
+    public String getSpecialization() {
+        return Specialization;
     }
 
     @Override

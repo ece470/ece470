@@ -22,4 +22,10 @@ public class DiagnosisService {
     public void addDiagnosis(Diagnosis diagnosis) {
         diagnosisRepository.save(diagnosis);
     }
+
+    public void addListDiagnosis(List<Diagnosis> diagnosisList) {
+        for(int i=0; i< (long) diagnosisList.size();i++) {
+            diagnosisRepository.save(diagnosisList.get(i));
+        }
+    }
 }

@@ -40,6 +40,7 @@ public class Diagnosis {
         this.details = details;
         this.patient = patient;
     }
+
     public String getDetails() {
         return details;
     }

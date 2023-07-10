@@ -1,5 +1,6 @@
 package com.hms.springbackendhms.restapi;
 
+import com.hms.springbackendhms.appointment.Appointment;
 import com.hms.springbackendhms.config.JwtService;
 //import com.hms.springbackendhms.db.VirtualDatabase;
 import com.hms.springbackendhms.patient.Patient;
@@ -14,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +34,7 @@ public class PatientIncomingAppointments {
     @GetMapping
     public PatientIncomingAppointmentsResponse incomingAppointments(
             @CookieValue(name="token", defaultValue = "") String token
-    ) {
+    ) throws ParseException {
 
         if(token.isBlank()){
             return null;
@@ -53,28 +56,39 @@ public class PatientIncomingAppointments {
                     // FROM PatientAppointment
                     // where mail = userEmail
                     // AND date > now()
-                    patientService.appointmentsAfterDatePatient(patient.get(), LocalDate.now().toString());
+                    List<Appointment> appointmentList = patientService.appointmentsAfterDatePatient(patient.get(), LocalDate.now().toString());
+                    if(appointmentList.isEmpty()) {
+                        return PatientIncomingAppointmentsResponse
+                                .builder()
+                                .incomingAppointments(null)
+                                .build();
+                    }
 
-                    List<Diagnosis> diagnoses = new ArrayList<>();
+                    List<Diagnosis> diagnoses = patient.get().getDiagnosisList();
 
-                    List<Prescription> prescriptions = new ArrayList<>();
+                    List<Prescription> prescriptions = patient.get().getPrescriptionList();
 
-                    List<MedicalAction> medicalActions = new ArrayList<>();
+                    List<MedicalAction> medicalActions = patient.get().getMedicalActionList();
 
 
                     List<PatientAppointment> appointments = new ArrayList<>();
-                    appointments.add(
-                            PatientAppointment
-                                    .builder()
-                                    .doctorFirstname("Anastasia")
-                                    .doctorLastname("Mallikopoulou")
-                                    .date(new Date())
-                                    .doctorSpecialisation("Cardiologist")
-                                    .diagnoses(diagnoses)
-                                    .medicalActions(medicalActions)
-                                    .prescriptions(prescriptions)
-                                    .build()
-                    );
+
+                    for(int i=0;i<appointmentList.size();i++) {
+                        //TODO:Date s1 =  new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse(appointmentList.get(i).getstart_time());
+                        appointments.add(
+                                PatientAppointment
+                                        .builder()
+                                        .doctorFirstname(appointmentList.get(i).getDoctor().getFirstname())
+                                        .doctorLastname(appointmentList.get(i).getDoctor().getLastname())
+                                        .date(new Date())
+                                        .doctorSpecialisation(appointmentList.get(i).getDoctor().getSpecialization())
+                                        .diagnoses(appointmentList.get(i).getDiagnosisList())
+                                        .medicalActions(appointmentList.get(i).getMedicalActionList())
+                                        .prescriptions(appointmentList.get(i).getPrescriptionList())
+                                        .build()
+                        );
+                    }
+
 
                     return PatientIncomingAppointmentsResponse
                             .builder()

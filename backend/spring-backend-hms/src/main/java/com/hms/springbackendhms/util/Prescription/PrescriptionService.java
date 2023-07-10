@@ -1,7 +1,10 @@
 package com.hms.springbackendhms.util.Prescription;
 
+import com.hms.springbackendhms.util.diagnosis.Diagnosis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PrescriptionService {
@@ -15,5 +18,11 @@ public class PrescriptionService {
 
     public void updatePrescription(Prescription prescription) {
         prescriptionRepository.save(prescription);
+    }
+
+    public void addListPrescription(List<Prescription> prescriptionList) {
+        for(int i=0; i< (long) prescriptionList.size();i++) {
+            prescriptionRepository.save(prescriptionList.get(i));
+        }
     }
 }

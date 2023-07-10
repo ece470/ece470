@@ -1,6 +1,6 @@
 package com.hms.springbackendhms.response;
 
-import com.hms.springbackendhms.appointment.Appointment;
+import com.hms.springbackendhms.util.DoctorAppointment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,5 +13,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DoctorAppointmentsHistoryResponse {
-    List<Appointment> history;
+    List<DoctorAppointment> history;
 }

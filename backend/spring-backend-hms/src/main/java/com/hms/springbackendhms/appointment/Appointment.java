@@ -90,6 +90,7 @@ public class Appointment {
         return diagnosisList;
     }
 
+
     public String getStart_time() {
         return start_time;
     }
