@@ -15,10 +15,6 @@ public class DiagnosisService {
         this.diagnosisRepository = diagnosisRepository;
     }
 
-    public List<Diagnosis> getDiagnosis() {
-        return diagnosisRepository.findAll();
-    }
-
     public void addDiagnosis(Diagnosis diagnosis) {
         diagnosisRepository.save(diagnosis);
     }
