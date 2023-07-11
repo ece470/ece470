@@ -18,32 +18,57 @@
     </style>    
 
     <body style="margin-top: 100px; text-align: center; width: 30%; margin-left: 30%;">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a id="home-btn" href="/" class="navbar-brand">Health Managment System</a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a id="pat-new" class="nav-link" href="/medical_action">Ιατρική Πράξη</a> <!-- add active class to portray which page user is on -->
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"> Doctor</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a id="profile-btn" class="dropdown-item" href="patientProfile.html">Προφίλ</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a id="logout-btn" class="dropdown-item" href="#">Έξοδος</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
         <div class="input-group mb-3" >
             <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">ΑΜΚΑ Ασθενή</span>
+                <span class="input-group-text">ΑΜΚΑ Ασθενή</span>
+
             </div>
-            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            <input type="text" id="amka" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            <button type="button" class="btn btn-primary" id="searchAmkaBtn">Αναζήτηση</button>
+            
         </div>
+        
         <div class="card" style="width: 35rem; text-align: left;">
             <div class="card-header">
               ΣΤΟΙΧΕΙΑ ΑΣΘΕΝΗ
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">Όνοματεπώνυμο</li>
-              <li class="list-group-item">ΑΜΚΑ</li>
-              <li class="list-group-item">ΑΦΜ</li>
-              <li class="list-group-item">Τηλέφωνο</li>
-              <li class="list-group-item">Διεύθυνση</li>
-              <li class="list-group-item">Τόπος Διαμονής</li>
-              <li class="list-group-item">Email</li>
-              
+                    <li id = "name" class="list-group-item">Όνοματεπώνυμο</li>
+                    <li id = "amka1" class="list-group-item">ΑΜΚΑ</li>
+                    <li id = "afm" class="list-group-item">ΑΦΜ</li>
+                    <li id = "tel" class="list-group-item">Τηλέφωνο</li>
+                    <li id = "address" class="list-group-item">Διεύθυνση</li>
+                    <li id = "diamoni" class="list-group-item">Τόπος Διαμονής</li>
+                    <li id = "email" class="list-group-item">Email</li>
             </ul>
         </div>
 
         <div  style="display: flex; justify-content: center; margin-top: 20px;">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#details" style=" height:40px; margin-right: 10px;">
-                Συνταγογράφιση
+                Συνταγογράφηση
             </button>
 
             <!-- Modal -->
@@ -58,20 +83,22 @@
                             <form class="row g-3">
                                 <div class="col-12">
                                     <label  for="titleEvent" class="form-label" ></label>                                
-                                    <input type="text" class="form-control" id="titleEvent" placeholder="Φάρμακο" readonly>
+                                    <input type="text" class="form-control" id="drugCode" placeholder="Φάρμακο">
                                 </div>
                                 <div class="form-group">
                                     <!-- <label for="exampleFormControlTextarea1" style="text-align: left;">Example textarea</label> -->
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" readonly rows="3" style="resize: none;">Περιγραφή φαρμάκου...</textarea>
-                                </div>       
-                                <div class="col-md-4" >
-                                    <label for="date" class="form-label" >Λήψη έως:</label>
-                                    <input type="date" class="form-control" id="date">
-                                </div>                                      
+                                    <textarea class="form-control" id="drugDescription" rows="3" style="resize: none;" placeholder="Λεπτομέρειες"></textarea>
+                                </div>    
+                                <div class="row g-3" style="text-align: center;">
+                                    <p  class="col-md-5" style="font-weight: bold;">Λήψη έως:</p>
+                                    <div class="col-md-5" >
+                                        <input type="date" class="form-control" id="drugDate">
+                                    </div>      
+                                </div>                                        
                             </form>                                                                                             
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color:rgb(7, 6, 219)" onclick="filterFunc();">Εντάξει</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color:rgb(7, 6, 219)" id="drugBtn">Εντάξει</button>
                         </div>
                     </div>
                 </div>
@@ -87,19 +114,19 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Στοιχεία Διάγνωσης</h5>
+                            <h5 class="modal-title" id="staticBackdropLabel1">Στοιχεία Διάγνωσης</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form class="row g-3">
                                 <div class="form-group">
                                     <!-- <label for="exampleFormControlTextarea1" style="text-align: left;">Example textarea</label> -->
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" readonly rows="3" style="resize: none;">Λεπτομέρειες Διάγνωσης</textarea>
+                                    <textarea class="form-control" id="diagnosisDetails" rows="3" style="resize: none;" placeholder="Λεπτομέρειες Διάγνωσης"></textarea>
                                 </div>                                          
                             </form>                                                                                             
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color:rgb(7, 6, 219)" onclick="filterFunc();">Εντάξει</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="diagnosisBtn" style="background-color:rgb(7, 6, 219)" >Εντάξει</button>
                         </div>
                     </div>
                 </div>
@@ -115,7 +142,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Εκτέλεση Ιατρικής Πράξης</h5>
+                            <h5 class="modal-title" id="staticBackdropLabel2">Εκτέλεση Ιατρικής Πράξης</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -123,30 +150,32 @@
                                 <div class="dropdown">
                                     <div class="row g-3">
                                         <p  class="col-md-2" style="font-weight: bold; height:min-content;">Πράξη</p>
-                                        <select class="col-md-5"  name="actions" class="form-control" id="actionDetails">
+                                        
+                                        <select class="form-control col-md-5"  name="actions" id="actionName" style="width: 60%;">
                                             <option value="action1">action1</option>
                                             <option value="action2">action2</option>
-                                            <option value="action3">action3</option>                     
+                                            <option value="action3">action3</option>
                                         </select>
+                                        
                                     </div>
                                     <script>
-                                        document.getElementById('actionDetails').addEventListener('change', function() {  this.style.color = this.value });
+                                        document.getElementById('actionName').addEventListener('change', function() {  this.style.color = this.value });
                                     </script>
                                 </div>
                                 <div class="form-group">
                                     <!-- <label for="exampleFormControlTextarea1" style="text-align: left;">Example textarea</label> -->
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" style="resize: none;">Λεπτομέρειες ιατρικής πράξης...</textarea>
+                                    <textarea class="form-control" id="actionDetails" rows="3" style="resize: none;" placeholder="Λεπτομέρειες ιατρικής πράξης"></textarea>
                                 </div>       
                                 <div class="row g-3" style="text-align: center;">
                                     <p  class="col-md-5" style="font-weight: bold;">Ημερομηνία Εκτέλεσης</p>
-                                    <div class="col-md-4" >
-                                        <input type="time" class="form-control" id="detailsEndTime">
+                                    <div class="col-md-5" >
+                                        <input type="date" class="form-control" id="actionDate">
                                     </div>      
                                 </div>                                 
                             </form>                                                                                             
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color:rgb(7, 6, 219)" onclick="filterFunc();">Εντάξει</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="actionBtn" style="background-color:rgb(7, 6, 219)">Εντάξει</button>
                         </div>
                     </div>
                 </div>
@@ -155,12 +184,9 @@
         
            
     </body>
-
-    <script>
-
-        
-
-
-    </script>
-    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="restapi/findPatientByAmka.js"></script>
+    <script src="restapi/addPrescription.js"></script>
+    <script src="restapi/addDiagnosis.js"></script>
+    <script src="restapi/executeMedicalAction.js"></script>
 </html>
