@@ -12,7 +12,15 @@ body {
   opacity: 0;
 }
 
+table.table tr.bg-ylw th {
+  background-color: #fffa96;
+  color: #212529;
+  font-size: 18px;
+}
 
+.nav-tabs {
+  --bs-nav-tabs-border-width: 0px
+}
 
 .form {
   width: 100%;
