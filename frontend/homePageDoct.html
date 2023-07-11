@@ -81,125 +81,39 @@
     </body>
 
     <script>
-        //   var historyAppointments =
-        // [   
-        //     {
-        //         "patientFirstname":"Kalli",
-        //         "patientLastname":"Giannikoglou",
-        //         "date":"2023-06-15T08:39:43.907+00:00"
-        //     },
-        //     {
-        //         "patientFirstname":"Ilias",
-        //         "patientLastname":"Lagomatis",
-        //         "date":"2023-05-24T08:39:43.907+00:00"
-        //     },
-        //     {
-        //         "patientFirstname":"Anastasia",
-        //         "patientLastname":"Mallikopoulou",
-        //         "date":"2023-05-24T08:39:43.907+00:00"
-        //     }
-        // ]
 
-        // var incomingAppointments = 
-        // [
-        //     {
-        //         "patientFirstname": "Ilias",
-        //         "patientLastname": "Lagomatis",
-        //         "date": "Sept 24, 23 13:20:18"
-        //     },
-        //     {
-        //         "patientFirstname": "Anastasia",
-        //         "patientLastname": "Mallikopoulou",
-        //         "date": "2023-05-24T08:44:19.741+00:00"
-        //     }
-        // ]
+      //function to load the data of the upcomingAppointments table
+      historyAppointments.forEach(element => { 
+        
+        var tableRow = document.getElementById("historyDocTable");
+        console.log(tableRow)
+        //add new row at the end
+        var row = tableRow.insertRow(-1);
+        //create 4 new cells
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
 
-        //   //separate time from DateTime object as hh:mm:ss
-        //   export function formatTime(date){
-        //     var hours = String(date.getHours()).padStart(2, '0');
-        //     var min = String(date.getMinutes()).padStart(2, '0');
-        //     var sec = String(date.getSeconds()).padStart(2, '0');
+        //load data to the cells
+        cell1.innerHTML = element.patientFirstname;
+        cell2.innerHTML = element.patientLastname;
+        var date = new Date(element.date);
+        cell3.innerHTML = formatDate(date);
+        cell4.innerHTML = formatTime(date);
 
-        //     return hours + ":" +  min + ":" + sec;
-        //   }
-
-        //   //separate date from DateTime object as dd/mm/yyyy
-        //   export function formatDate(date){
-        //     var day = String(date.getDate()).padStart(2, '0');
-        //     var month = String(date.getMonth()).padStart(2, '0');
-        //     var year = String(date.getFullYear()).padStart(4, '0');
-
-        //     return day + "/" +  month + "/" + year;
-        //   }
-
-        //function to load the data of the upcomingAppointments table
-        //   incomingAppointments.forEach(element => { 
-
-        //     var tableRow = document.getElementById("upcomingDocTable");
-        //     //add new row at the end
-        //     var row = tableRow.insertRow(-1);
-        //     //create 4 new cells
-        //     var cell1 = row.insertCell(0);
-        //     var cell2 = row.insertCell(1);
-        //     var cell3 = row.insertCell(2);
-        //     var cell4 = row.insertCell(3);
-
-        //     //load data to the cells
-        //     cell1.innerHTML = element.patientFirstname;
-        //     cell2.innerHTML = element.patientLastname;
-        //     var date = new Date(element.date);
-        //     cell3.innerHTML = formatDate(date);
-        //     cell4.innerHTML = formatTime(date);
-
-        //   });
-
-        //Me history den doyleuei!
-
-        //function to load the data of the upcomingAppointments table
-        historyAppointments.forEach(element => {
-
-            var tableRow = document.getElementById("historyDocTable");
-            console.log(tableRow)
-            //add new row at the end
-            var row = tableRow.insertRow(-1);
-            //create 4 new cells
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            var cell4 = row.insertCell(3);
-
-            //load data to the cells
-            cell1.innerHTML = element.patientFirstname;
-            cell2.innerHTML = element.patientLastname;
-            var date = new Date(element.date);
-            cell3.innerHTML = formatDate(date);
-            cell4.innerHTML = formatTime(date);
-
-        });
-
-        //function to display and hide changing tabs
-        function visibility(idVisible, idInvisible1, idInvisible2) {
-            document.getElementById(idVisible).style.display = "block";
-            document.getElementById(idInvisible1).style.display = "none";
-            document.getElementById(idInvisible2).style.display = "none";
-        }
+      });
+  
+      //function to display and hide changing tabs
+      function visibility(idVisible, idInvisible1, idInvisible2){
+          document.getElementById(idVisible).style.display="block";
+          document.getElementById(idInvisible1).style.display="none";
+          document.getElementById(idInvisible2).style.display="none";
+      }
 
 
     </script>
-    
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
-        /*document.getElementById("logout-btn").addEventListener("click", function(){
-            console.log("Logout");
-            /*axios.post("/logout")
-                .then((response) => {
-                    window.location.replace("/");                
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            })*/
-    </script>
     <script src="restapi/doctorIncomingAppointments.js"></script>
     <script src="restapi/doctorAppointmentsHistory.js"></script>
 
