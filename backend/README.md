@@ -45,10 +45,10 @@ appointments
 /restapi/execute_medical_action: doctors only , POST endpoint to add a medical action on a patient 
 
 
-/restapi/find_available_appointments_by_doctor: patients only, GET endpoint to get the available appointments of a doctor they searched for
+/restapi/find_available_appointments_by_doctor: patients only, POST (to send body) endpoint to get the available appointments of a doctor they searched for
 
 
-/restapi/find_patient_by_amka: doctors only, GET endpoint to find a patient giving as an input their amka 
+/restapi/find_patient_by_amka: doctors only, POST (to send body) endpoint to find a patient giving as an input their amka 
 
 
 /restapi/make_appointment: patients only, POST endpoint to make an appointment with the doctor(after viewing available times)
