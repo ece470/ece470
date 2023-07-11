@@ -1,6 +1,6 @@
 #Backend
 
-The application server will be impplemented using spring boot framework with java
+The application server will be implemented using spring boot framework with java.
 
 The file "pom.xml" contains the dependencies of the project and whoever wants to add a new dependency (eg MySQL connection) must add it here.
 
