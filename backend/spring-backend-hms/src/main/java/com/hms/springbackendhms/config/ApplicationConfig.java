@@ -20,16 +20,31 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationConfig {
     private final UserRepository repository;
+    /*
     @Bean
     public UserDetailsService userDetailsService(){
         return username -> VirtualDatabase.findByEmail(username);
 
-        /*
-            return username -> repository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        */
+           // return username -> repository.findByEmail(username)
+           //     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+
     }
+    */
+    @Bean
+    public UserDetailsService userDetailsService(){
+        return username -> {
+          if(VirtualDatabase.hasDoctor(username)){
+              return VirtualDatabase.getDoctor(username);
+          }
+          if(VirtualDatabase.hasPatient(username)){
+              return VirtualDatabase.getPatient(username);
+          }
+          return null;
+        };
+    }
+
 
     @Bean
     public AuthenticationProvider authenticationProvider() {

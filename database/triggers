@@ -1,0 +1,75 @@
+#TRIGGER FOR CHECKING IF THE SECURITY NUMBER OF THE PATIENT  IS VALID
+DELIMITER //
+CREATE OR REPLACE TRIGGER triggerValidSecurityNumberPatient
+    BEFORE INSERT ON Patient
+    FOR EACH ROW
+    BEGIN
+       IF ( ISNUMERIC(new.AFMNumber)=!1 OR (LEN(new.AFMNumber)=!11) THEN
+        SIGNAL SQLSTATE '45000' SET message_text =
+        'The security number is not correct';
+        END IF;
+    END//
+DELIMITER ;
+
+
+#TRIGGER FOR CHECKING IF THE SECURITY NUMBER OF THE Doctor  IS VALID
+DELIMITER //
+CREATE OR REPLACE TRIGGER triggerValidSecurityNumberDoctor
+    BEFORE INSERT ON Doctor
+    FOR EACH ROW
+    BEGIN
+        IF ( ISNUMERIC(new.AFMNumber)=!1 OR (LEN(new.AFMNumber)=!11) THEN 
+        SIGNAL SQLSTATE '45000' SET message_text =
+        'The security number is not correct';
+        END IF;
+    END//
+DELIMITER ;
+
+#TRIGGER FOR CHECKING IF THE SECURITY NUMBER OF THE Doctor  IS VALID
+DELIMITER //
+CREATE OR REPLACE TRIGGER triggerValidPostalCode
+    BEFORE INSERT ON Doctor
+    FOR EACH ROW
+    BEGIN
+        IF ( ISNUMERIC(new.PostalCode)=!1 OR (LEN(new.PostalCode)=!5) THEN 
+        SIGNAL SQLSTATE '45000' SET message_text =
+        'The security number is not correct';
+        END IF;
+    END//
+DELIMITER ;
+
+CREATE OR REPLACE TRIGGER triggerValidPostalCode
+    BEFORE INSERT ON Patient
+    FOR EACH ROW
+    BEGIN
+        IF ( ISNUMERIC(new. PostalCode)=!1 OR (LEN(new. PostalCode)=!5) THEN 
+        SIGNAL SQLSTATE '45000' SET message_text =
+        'The security number is not correct';
+        END IF;
+    END//
+DELIMITER //
+CREATE OR REPLACE TRIGGER triggerValidPhoneNumber
+    BEFORE INSERT ON Patient
+    FOR EACH ROW
+    BEGIN
+        IF ( ISNUMERIC(new.PhoneNumber)=!1 OR (LEN(new. PhoneNumber)=!10) THEN 
+        SIGNAL SQLSTATE '45000' SET message_text =
+        'The security number is not correct';
+        END IF;
+    END//
+DELIMITER ;
+
+DELIMITER //
+CREATE OR REPLACE TRIGGER triggerValidPhoneNumber
+    BEFORE INSERT ON Doctor
+    FOR EACH ROW
+    BEGIN
+        IF ( ISNUMERIC(new.PhoneNumber)=!1 OR (LEN(new. PhoneNumber)=!10) THEN 
+        SIGNAL SQLSTATE '45000' SET message_text =
+        'The security number is not correct';
+        END IF;
+    END//
+DELIMITER ;
+
+
+

@@ -1,6 +1,7 @@
 package com.hms.springbackendhms.controller;
 
 import com.hms.springbackendhms.config.JwtService;
+import com.hms.springbackendhms.db.VirtualDatabase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,16 +32,27 @@ public class MainPageController {
         }
         String userEmail = jwtService.extractUsername(token);
         if(userEmail != null) {
+            System.out.println("Main Page: " + userEmail);
+
+
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
             if (jwtService.isTokenValid(token, userDetails)) {
                 // access database to get info about the user
                 // and return main page
-                return "Valid token: " + userEmail;
+
+                if(VirtualDatabase.hasDoctor(userEmail)){
+                    return "homePageDoct";
+                }
+                if(VirtualDatabase.hasPatient(userEmail)){
+                    return "homePagePatients";
+                }
+                return "index1";
 
             } else {
                 // return home page
                 return "register";
             }
+
 
         }
         return "register";
